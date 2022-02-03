@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/612593/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Thu, 03 Feb 2022 12:14:18 UTC
+update_date: Thu, 01 Jan 1970 00:00:00 UTC
 stages:
 - id: 1086
   step: 16601
@@ -347,16 +347,16 @@ topics:
     theory_id: 7907
   - title: Intro to MySQL
     theory_id: 16662
-  - title: Basic SELECT statement
-    theory_id: 7392
-  - title: SELECT FROM statement
-    theory_id: 8611
   - title: Basic UPDATE statement
     theory_id: 9067
   - title: Basic CREATE statement
     theory_id: 9084
   - title: Basic INSERT statement
     theory_id: 9059
+  - title: Basic SELECT statement
+    theory_id: 7392
+  - title: SELECT FROM statement
+    theory_id: 8611
   - title: Connecting to a database with JDBC
     theory_id: 9519
   - title: JDBC Statements

@@ -19,7 +19,18 @@ files:
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        //implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.0.Final'
+
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        //runtimeOnly 'com.h2database:h2'
     }
   learner_created: false
 - name: src/account/AccountServiceApplication.java
@@ -46,6 +57,135 @@ files:
     management.endpoints.web.exposure.include=*
     management.endpoint.shutdown.enabled=true
     spring.jackson.serialization.INDENT_OUTPUT=true
+  learner_created: false
+- name: src/account/presentation/AuthController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import account.business.entities.User;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RestController;
+
+    import javax.validation.Valid;
+
+    @RestController
+    public class AuthController {
+
+        @PostMapping("api/auth/signup")
+        public static User register(@Valid @RequestBody User user) {
+            return user;
+        }
+
+        @PostMapping("api/auth/changepass")
+        public static void changePassword() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/presentation/BusinessController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.PutMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    @RestController
+    public class BusinessController {
+
+        @GetMapping("api/empl/payment")
+        public static void getPayments() {
+
+        }
+
+        @PostMapping("api/acct/payments")
+        public static void uploadPayroll() {
+
+        }
+
+        @PutMapping("api/acct/payments")
+        public static void updatePayment() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/presentation/ServiceController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import org.springframework.web.bind.annotation.DeleteMapping;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PutMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    @RestController
+    public class ServiceController {
+
+        @PutMapping("api/admin/role")
+        public static void changeRole() {
+
+        }
+
+        @DeleteMapping("api/admin/user")
+        public static void deleteUser() {
+
+        }
+
+        @GetMapping("api/admin/user")
+        public static void getAllUsersInfo() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/business/entities/User.java
+  visible: true
+  text: |
+    package account.business.entities;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.Data;
+
+    /*
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+    */
+
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Pattern;
+
+    //@Entity
+    @Data
+    public class User {
+
+        //@Id
+        //@GeneratedValue(strategy = GenerationType.IDENTITY)
+        @JsonIgnore
+        private int id;
+
+        @NotBlank(message = "Name is required")
+        private String name;
+
+        @NotBlank(message = "Lastname is required")
+        private String lastname;
+
+        @Email
+        @NotBlank(message = "Email is required")
+        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
+        private String email;
+
+        @NotBlank
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String password;
+    }
   learner_created: false
 - name: test/AccountServiceTest.java
   visible: false
@@ -367,156 +507,33 @@ files:
       };
     }
   learner_created: false
-- name: src/account/presentation/ServiceController.java
+- name: src/account/config/UserDetailsImpl.java
   visible: true
-  text: |
-    package account.presentation;
-
-    import org.springframework.web.bind.annotation.DeleteMapping;
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.PutMapping;
-    import org.springframework.web.bind.annotation.RestController;
-
-    @RestController
-    public class ServiceController {
-
-        @PutMapping("api/admin/role")
-        public static void changeRole() {
-
-        }
-
-        @DeleteMapping("api/admin/user")
-        public static void deleteUser() {
-
-        }
-
-        @GetMapping("api/admin/user")
-        public static void getAllUsersInfo() {
-
-        }
-    }
-  learner_created: true
-- name: src/account/presentation/BusinessController.java
-  visible: true
-  text: |
-    package account.presentation;
-
-    import org.springframework.web.bind.annotation.GetMapping;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.PutMapping;
-    import org.springframework.web.bind.annotation.RestController;
-
-    @RestController
-    public class BusinessController {
-
-        @GetMapping("api/empl/payment")
-        public static void getPayments() {
-
-        }
-
-        @PostMapping("api/acct/payments")
-        public static void uploadPayroll() {
-
-        }
-
-        @PutMapping("api/acct/payments")
-        public static void updatePayment() {
-
-        }
-    }
-  learner_created: true
-- name: src/account/presentation/AuthController.java
-  visible: true
-  text: |
-    package account.presentation;
-
-    import account.business.entities.User;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RestController;
-
-    import javax.validation.Valid;
-
-    @RestController
-    public class AuthController {
-
-        @PostMapping("api/auth/signup")
-        public static User register(@Valid @RequestBody User user) {
-            return user;
-        }
-
-        @PostMapping("api/auth/changepass")
-        public static void changePassword() {
-
-        }
-    }
-  learner_created: true
-- name: src/account/business/entities/User.java
-  visible: true
-  text: |
-    package account.business.entities;
-
-    import com.fasterxml.jackson.annotation.JsonIgnore;
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import lombok.Data;
-
-    /*
-    import javax.persistence.Entity;
-    import javax.persistence.GeneratedValue;
-    import javax.persistence.GenerationType;
-    import javax.persistence.Id;
-    */
-
-    import javax.validation.constraints.Email;
-    import javax.validation.constraints.NotBlank;
-    import javax.validation.constraints.Pattern;
-
-    //@Entity
-    @Data
-    public class User {
-
-        //@Id
-        //@GeneratedValue(strategy = GenerationType.IDENTITY)
-        @JsonIgnore
-        private int id;
-
-        @NotBlank(message = "Name is required")
-        private String name;
-
-        @NotBlank(message = "Lastname is required")
-        private String lastname;
-
-        @Email
-        @NotBlank(message = "Email is required")
-        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
-        private String email;
-
-        @NotBlank
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private String password;
-    }
   learner_created: true
 - name: src/account/persistence/UserRepository.java
-  visible: true
-  learner_created: true
-- name: src/account/business/services/AuthService.java
-  visible: true
-  learner_created: true
-- name: src/account/config/WebSecurityConfigurerImpl.java
-  visible: true
-  learner_created: true
-- name: src/account/config/UserDetailsImpl.java
   visible: true
   learner_created: true
 - name: src/account/config/Roles.java
   visible: true
   learner_created: true
+- name: src/account/config/WebSecurityConfigurerImpl.java
+  visible: true
+  learner_created: true
 - name: src/account/config/RestAuthenticationEntryPoint.java
+  visible: true
+  learner_created: true
+- name: src/account/business/services/AuthService.java
+  visible: true
+  learner_created: true
+- name: src/account/business/services/UserDetailsServiceImpl.java
+  visible: true
+  learner_created: true
+- name: src/account/business/services/BusinessService.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1087/implement#comment
 status: Failed
 feedback:
   message: Compilation Failed
-  time: Thu, 03 Feb 2022 13:19:02 UTC
-record: -1
+  time: Thu, 03 Feb 2022 14:48:46 UTC
+record: 1

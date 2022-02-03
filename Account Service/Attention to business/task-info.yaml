@@ -19,7 +19,18 @@ files:
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.0.Final'
+
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.22'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+        runtimeOnly 'com.h2database:h2'
     }
   learner_created: false
 - name: src/account/AccountServiceApplication.java
@@ -46,6 +57,374 @@ files:
     management.endpoints.web.exposure.include=*
     management.endpoint.shutdown.enabled=true
     spring.jackson.serialization.INDENT_OUTPUT=true
+  learner_created: false
+- name: src/account/presentation/ServiceController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import org.springframework.web.bind.annotation.DeleteMapping;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PutMapping;
+    import org.springframework.web.bind.annotation.RestController;
+
+    @RestController
+    public class ServiceController {
+
+        @PutMapping("api/admin/role")
+        public static void changeRole() {
+
+        }
+
+        @DeleteMapping("api/admin/user")
+        public static void deleteUser() {
+
+        }
+
+        @GetMapping("api/admin/user")
+        public static void getAllUsersInfo() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/presentation/BusinessController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import account.business.entities.User;
+    import account.business.services.AuthService;
+    import account.config.UserDetailsImpl;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.Optional;
+
+    @RestController
+    public class BusinessController {
+        @Autowired
+        private AuthService authService;
+
+        @GetMapping("api/empl/payment")
+        public User getPayments(@AuthenticationPrincipal UserDetails details) {
+            Optional<User> optUser = authService.authorize(details.getUsername());
+            if (optUser.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong password");
+            }
+
+            return optUser.get();
+        }
+
+        @PostMapping("api/acct/payments")
+        public void uploadPayroll() {
+
+        }
+
+        @PutMapping("api/acct/payments")
+        public void updatePayment() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/presentation/AuthController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import account.business.entities.User;
+    import account.business.services.AuthService;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import javax.validation.Valid;
+    import java.util.Optional;
+
+    @RestController
+    public class AuthController {
+        @Autowired
+        private AuthService authService;
+
+        @PostMapping("api/auth/signup")
+        public User register(@Valid @RequestBody User user) {
+            Optional<User> optUser = authService.register(user);
+            if (optUser.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This email is already registered");
+            }
+
+            return optUser.get();
+        }
+
+        @PostMapping("api/auth/changepass")
+        public void changePassword() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/business/entities/User.java
+  visible: true
+  text: |
+    package account.business.entities;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.Data;
+
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Pattern;
+    import java.util.Locale;
+
+    @Entity
+    @Data
+    public class User {
+
+        public User(String name, String lastname, String email, String password) {
+            this.name = name;
+            this.lastname = lastname;
+            this.email = email.toLowerCase(Locale.ROOT);
+            this.password = password;
+        }
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        @NotBlank(message = "Name is required")
+        private String name;
+
+        @NotBlank(message = "Lastname is required")
+        private String lastname;
+
+        @Email
+        @NotBlank(message = "Email is required")
+        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
+        private String email;
+
+        @NotBlank
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String password;
+    }
+  learner_created: false
+- name: src/account/persistence/UserRepository.java
+  visible: true
+  text: |
+    package account.persistence;
+
+    import account.business.entities.User;
+    import org.springframework.data.repository.CrudRepository;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.Optional;
+
+    @Repository
+    public interface UserRepository extends CrudRepository<User, Long> {
+        User save(User user);
+        Optional<User> findByEmail(String email);
+    }
+  learner_created: false
+- name: src/account/business/services/AuthService.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.User;
+    import account.config.UserDetailsImpl;
+    import account.persistence.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.stereotype.Service;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.Optional;
+
+    @Service
+    public class AuthService {
+        @Autowired
+        private UserRepository userRepository;
+        @Autowired
+        private PasswordEncoder encoder;
+
+        public Optional<User> register(User user) {
+            user.setPassword(encoder.encode(user.getPassword()));
+
+            Optional<User> optUser = userRepository.findByEmail(user.getEmail());
+            if (optUser.isPresent()) {
+                return Optional.of(null);
+            }
+
+            return Optional.of(userRepository.save(user));
+        }
+
+        public Optional<User> authorize(String email) {
+            Optional<User> optUser = userRepository.findByEmail(email);
+            return optUser;
+        }
+    }
+  learner_created: false
+- name: src/account/config/WebSecurityConfigurerImpl.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+    import org.springframework.security.config.http.SessionCreationPolicy;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+
+    @EnableWebSecurity
+    public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
+
+        @Autowired
+        RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+        @Autowired
+        UserDetailsService userDetailService;
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth
+                    .userDetailsService(userDetailService)
+                    .passwordEncoder(getEncoder());
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.httpBasic()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint)
+                    .and()
+                    .csrf().disable().headers().frameOptions().disable()
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/api/signup").permitAll()
+                    .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        }
+
+        @Bean
+        public PasswordEncoder getEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+    }
+  learner_created: false
+- name: src/account/config/UserDetailsImpl.java
+  visible: true
+  text: |
+    package account.config;
+
+    import account.business.entities.User;
+    import org.springframework.security.core.GrantedAuthority;
+    import org.springframework.security.core.authority.SimpleGrantedAuthority;
+    import org.springframework.security.core.userdetails.UserDetails;
+
+    import java.util.Collection;
+    import java.util.List;
+
+    public class UserDetailsImpl implements UserDetails {
+
+        private final String username;
+        private final String password;
+        private final List<GrantedAuthority> rolesAndAuthorities;
+
+        public UserDetailsImpl(User user) {
+            this.username = user.getEmail();
+            this.password = user.getPassword();
+            this.rolesAndAuthorities = List.of(new SimpleGrantedAuthority(Roles.USER.getRole()));
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return rolesAndAuthorities;
+        }
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public String getUsername() {
+            return username;
+        }
+
+        @Override
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        @Override
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return true;
+        }
+    }
+  learner_created: false
+- name: src/account/config/Roles.java
+  visible: true
+  text: |
+    package account.config;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Getter;
+
+    @AllArgsConstructor
+    @Getter
+    public enum Roles {
+        USER("ROLE_USER");
+
+        private String role;
+    }
+  learner_created: false
+- name: src/account/config/RestAuthenticationEntryPoint.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.security.core.AuthenticationException;
+    import org.springframework.security.web.AuthenticationEntryPoint;
+
+    import javax.servlet.ServletException;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import java.io.IOException;
+
+    public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+        }
+    }
   learner_created: false
 - name: test/AccountServiceTest.java
   visible: false

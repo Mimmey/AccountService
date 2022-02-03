@@ -8,27 +8,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-@Service
-public class AuthService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder encoder;
+    UserRepository userRepository;
 
-    public Optional<User> register(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByEmail(username);
 
-        Optional<User> optUser = userRepository.findByEmail(user.getEmail());
-        if (optUser.isPresent()) {
-            return Optional.of(null);
+        if (user.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not found email: " + username);
         }
 
-        return Optional.of(userRepository.save(user));
+        return new UserDetailsImpl(user.get());
     }
 }
