@@ -17,9 +17,9 @@ import java.util.Optional;
 @Service
 public class AuthService {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
     @Autowired
-    private PasswordEncoder encoder;
+    PasswordEncoder encoder;
 
     public Optional<User> register(User user) {
         user.setPassword(encoder.encode(user.getPassword()));

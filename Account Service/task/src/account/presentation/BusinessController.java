@@ -17,7 +17,7 @@ import java.util.Optional;
 @RestController
 public class BusinessController {
     @Autowired
-    private BusinessService businessService;
+    BusinessService businessService;
 
     @GetMapping("api/empl/payment")
     public User getPayments(@AuthenticationPrincipal UserDetails details) {

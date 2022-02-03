@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 public class AuthController {
     @Autowired
-    private AuthService authService;
+    AuthService authService;
 
     @PostMapping("api/auth/signup")
     public User register(@Valid @RequestBody User user) {
