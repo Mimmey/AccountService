@@ -58,6 +58,92 @@ files:
     management.endpoints.web.exposure.include=*
     management.endpoint.shutdown.enabled=true
     spring.jackson.serialization.INDENT_OUTPUT=true
+    spring.datasource.url=jdbc:h2:file:../service_db
+    server.error.include-message=always
+    spring.jpa.hibernate.ddl-auto=update
+  learner_created: false
+- name: src/account/presentation/AuthController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import account.business.entities.User;
+    import account.business.services.AuthService;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import javax.validation.Valid;
+    import java.util.Optional;
+
+    @RestController
+    public class AuthController {
+        @Autowired
+        AuthService authService;
+
+        @PostMapping("api/auth/signup")
+        public User register(@Valid @RequestBody User user) {
+            Optional<User> optUser = authService.register(user);
+            if (optUser.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This email is already registered");
+            }
+
+            return optUser.get();
+        }
+
+        @PostMapping("api/auth/changepass")
+        public void changePassword() {
+
+        }
+    }
+  learner_created: false
+- name: src/account/presentation/BusinessController.java
+  visible: true
+  text: |
+    package account.presentation;
+
+    import account.business.entities.User;
+    import account.business.services.AuthService;
+    import account.business.services.BusinessService;
+    import account.config.UserDetailsImpl;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.Optional;
+
+    @RestController
+    public class BusinessController {
+        @Autowired
+        BusinessService businessService;
+
+        @GetMapping("api/empl/payment")
+        public User getPayments(@AuthenticationPrincipal UserDetails details) {
+            Optional<User> optUser = businessService.getUserByEmail(details.getUsername());
+            if (optUser.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
+            }
+
+            return optUser.get();
+        }
+
+        @PostMapping("api/acct/payments")
+        public void uploadPayroll() {
+
+        }
+
+        @PutMapping("api/acct/payments")
+        public void updatePayment() {
+
+        }
+    }
   learner_created: false
 - name: src/account/presentation/ServiceController.java
   visible: true
@@ -84,88 +170,6 @@ files:
 
         @GetMapping("api/admin/user")
         public static void getAllUsersInfo() {
-
-        }
-    }
-  learner_created: false
-- name: src/account/presentation/BusinessController.java
-  visible: true
-  text: |
-    package account.presentation;
-
-    import account.business.entities.User;
-    import account.business.services.AuthService;
-    import account.config.UserDetailsImpl;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.security.core.annotation.AuthenticationPrincipal;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.security.core.userdetails.UsernameNotFoundException;
-    import org.springframework.web.bind.annotation.*;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import java.util.Optional;
-
-    @RestController
-    public class BusinessController {
-        @Autowired
-        private AuthService authService;
-
-        @GetMapping("api/empl/payment")
-        public User getPayments(@AuthenticationPrincipal UserDetails details) {
-            Optional<User> optUser = authService.authorize(details.getUsername());
-            if (optUser.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong password");
-            }
-
-            return optUser.get();
-        }
-
-        @PostMapping("api/acct/payments")
-        public void uploadPayroll() {
-
-        }
-
-        @PutMapping("api/acct/payments")
-        public void updatePayment() {
-
-        }
-    }
-  learner_created: false
-- name: src/account/presentation/AuthController.java
-  visible: true
-  text: |
-    package account.presentation;
-
-    import account.business.entities.User;
-    import account.business.services.AuthService;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RestController;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import javax.validation.Valid;
-    import java.util.Optional;
-
-    @RestController
-    public class AuthController {
-        @Autowired
-        private AuthService authService;
-
-        @PostMapping("api/auth/signup")
-        public User register(@Valid @RequestBody User user) {
-            Optional<User> optUser = authService.register(user);
-            if (optUser.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This email is already registered");
-            }
-
-            return optUser.get();
-        }
-
-        @PostMapping("api/auth/changepass")
-        public void changePassword() {
 
         }
     }
@@ -217,117 +221,6 @@ files:
         @NotBlank
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         private String password;
-    }
-  learner_created: false
-- name: src/account/persistence/UserRepository.java
-  visible: true
-  text: |
-    package account.persistence;
-
-    import account.business.entities.User;
-    import org.springframework.data.repository.CrudRepository;
-    import org.springframework.stereotype.Repository;
-
-    import java.util.Optional;
-
-    @Repository
-    public interface UserRepository extends CrudRepository<User, Long> {
-        User save(User user);
-        Optional<User> findByEmail(String email);
-    }
-  learner_created: false
-- name: src/account/business/services/AuthService.java
-  visible: true
-  text: |
-    package account.business.services;
-
-    import account.business.entities.User;
-    import account.config.UserDetailsImpl;
-    import account.persistence.UserRepository;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.security.core.userdetails.UserDetails;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-    import org.springframework.security.core.userdetails.UsernameNotFoundException;
-    import org.springframework.security.crypto.password.PasswordEncoder;
-    import org.springframework.stereotype.Service;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import java.util.Optional;
-
-    @Service
-    public class AuthService {
-        @Autowired
-        private UserRepository userRepository;
-        @Autowired
-        private PasswordEncoder encoder;
-
-        public Optional<User> register(User user) {
-            user.setPassword(encoder.encode(user.getPassword()));
-
-            Optional<User> optUser = userRepository.findByEmail(user.getEmail());
-            if (optUser.isPresent()) {
-                return Optional.of(null);
-            }
-
-            return Optional.of(userRepository.save(user));
-        }
-
-        public Optional<User> authorize(String email) {
-            Optional<User> optUser = userRepository.findByEmail(email);
-            return optUser;
-        }
-    }
-  learner_created: false
-- name: src/account/config/WebSecurityConfigurerImpl.java
-  visible: true
-  text: |
-    package account.config;
-
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-    import org.springframework.security.config.http.SessionCreationPolicy;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-    import org.springframework.security.crypto.password.PasswordEncoder;
-
-    @EnableWebSecurity
-    public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-        @Autowired
-        UserDetailsService userDetailService;
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth
-                    .userDetailsService(userDetailService)
-                    .passwordEncoder(getEncoder());
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.httpBasic()
-                    .authenticationEntryPoint(restAuthenticationEntryPoint)
-                    .and()
-                    .csrf().disable().headers().frameOptions().disable()
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/api/signup").permitAll()
-                    .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        }
-
-        @Bean
-        public PasswordEncoder getEncoder() {
-            return new BCryptPasswordEncoder();
-        }
     }
   learner_created: false
 - name: src/account/config/UserDetailsImpl.java
@@ -391,6 +284,23 @@ files:
         }
     }
   learner_created: false
+- name: src/account/persistence/UserRepository.java
+  visible: true
+  text: |
+    package account.persistence;
+
+    import account.business.entities.User;
+    import org.springframework.data.repository.CrudRepository;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.Optional;
+
+    @Repository
+    public interface UserRepository extends CrudRepository<User, Long> {
+        User save(User user);
+        Optional<User> findByEmail(String email);
+    }
+  learner_created: false
 - name: src/account/config/Roles.java
   visible: true
   text: |
@@ -407,6 +317,60 @@ files:
         private String role;
     }
   learner_created: false
+- name: src/account/config/WebSecurityConfigurerImpl.java
+  visible: true
+  text: |
+    package account.config;
+
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.http.HttpMethod;
+    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+    import org.springframework.security.config.http.SessionCreationPolicy;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+
+    @EnableWebSecurity
+    public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
+
+        @Autowired
+        RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+        @Autowired
+        UserDetailsService userDetailService;
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth
+                    .userDetailsService(userDetailService)
+                    .passwordEncoder(getEncoder());
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.httpBasic()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint)
+                    .and()
+                    .csrf().disable().headers().frameOptions().disable()
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/api/auth/signup").permitAll()
+                    .mvcMatchers(HttpMethod.GET, "/api/empl/payment").authenticated()
+                    .mvcMatchers("/").authenticated()
+                    .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        }
+
+        @Bean
+        public PasswordEncoder getEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+    }
+  learner_created: false
 - name: src/account/config/RestAuthenticationEntryPoint.java
   visible: true
   text: |
@@ -414,16 +378,114 @@ files:
 
     import org.springframework.security.core.AuthenticationException;
     import org.springframework.security.web.AuthenticationEntryPoint;
+    import org.springframework.stereotype.Component;
 
     import javax.servlet.ServletException;
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
     import java.io.IOException;
 
+    @Component
     public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+        }
+    }
+  learner_created: false
+- name: src/account/business/services/AuthService.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.User;
+    import account.config.UserDetailsImpl;
+    import account.persistence.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.stereotype.Service;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.Optional;
+
+    @Service
+    public class AuthService {
+        @Autowired
+        UserRepository userRepository;
+        @Autowired
+        PasswordEncoder encoder;
+
+        public Optional<User> register(User user) {
+            user.setPassword(encoder.encode(user.getPassword()));
+
+            Optional<User> optUser = userRepository.findByEmail(user.getEmail());
+            if (optUser.isPresent()) {
+                return Optional.of(null);
+            }
+
+            return Optional.of(userRepository.save(user));
+        }
+    }
+  learner_created: false
+- name: src/account/business/services/UserDetailsServiceImpl.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.User;
+    import account.config.UserDetailsImpl;
+    import account.persistence.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.core.userdetails.UserDetails;
+    import org.springframework.security.core.userdetails.UserDetailsService;
+    import org.springframework.security.core.userdetails.UsernameNotFoundException;
+    import org.springframework.stereotype.Service;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.Optional;
+
+    @Service
+    public class UserDetailsServiceImpl implements UserDetailsService {
+        @Autowired
+        UserRepository userRepository;
+
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            Optional<User> user = userRepository.findByEmail(username);
+
+            if (user.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not found email: " + username);
+            }
+
+            return new UserDetailsImpl(user.get());
+        }
+    }
+  learner_created: false
+- name: src/account/business/services/BusinessService.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.User;
+    import account.persistence.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Service;
+
+    import java.util.Optional;
+
+    @Service
+    public class BusinessService {
+        @Autowired
+        UserRepository userRepository;
+
+        public Optional<User> getUserByEmail(String email) {
+            Optional<User> optUser = userRepository.findByEmail(email);
+            return optUser;
         }
     }
   learner_created: false
@@ -899,4 +961,4 @@ files:
   learner_created: false
 feedback_link: https://hyperskill.org/projects/217/stages/1088/implement#comment
 status: Unchecked
-record: -1
+record: 3

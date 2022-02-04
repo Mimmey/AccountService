@@ -13,7 +13,7 @@ public class BusinessService {
     UserRepository userRepository;
 
     public Optional<User> getUserByEmail(String email) {
-        Optional<User> optUser = userRepository.findByEmail(email);
+        Optional<User> optUser = userRepository.findByEmailIgnoreCase(email);
         return optUser;
     }
 }

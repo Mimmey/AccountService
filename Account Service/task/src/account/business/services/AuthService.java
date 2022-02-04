@@ -24,9 +24,9 @@ public class AuthService {
     public Optional<User> register(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
 
-        Optional<User> optUser = userRepository.findByEmail(user.getEmail());
+        Optional<User> optUser = userRepository.findByEmailIgnoreCase(user.getEmail());
         if (optUser.isPresent()) {
-            return Optional.of(null);
+            return Optional.empty();
         }
 
         return Optional.of(userRepository.save(user));

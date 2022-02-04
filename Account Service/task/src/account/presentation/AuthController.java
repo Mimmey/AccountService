@@ -19,9 +19,10 @@ public class AuthController {
 
     @PostMapping("api/auth/signup")
     public User register(@Valid @RequestBody User user) {
+        user.initialize();
         Optional<User> optUser = authService.register(user);
         if (optUser.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This email is already registered");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exist!");
         }
 
         return optUser.get();
