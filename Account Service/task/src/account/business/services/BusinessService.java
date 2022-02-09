@@ -5,6 +5,11 @@ import account.business.entities.dbentities.SalaryUnit;
 import account.business.entities.dbentities.User;
 import account.business.entities.dto.BusinessCardDTO;
 import account.business.entities.dto.SalaryUnitDTO;
+import account.config.exceptions.badrequestexceptions.DuplicatedSalaryUnitsException;
+import account.config.exceptions.badrequestexceptions.NegativeSalaryException;
+import account.config.exceptions.internalservererrorexceptions.UpdatingSalaryUnitException;
+import account.config.exceptions.notfoundexceptions.EmailNotFoundException;
+import account.config.exceptions.notfoundexceptions.SalaryUnitNotFoundException;
 import account.persistence.SalaryUnitRepository;
 import account.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +31,23 @@ public class BusinessService {
     @Autowired
     private AuthService authService;
 
-    public void checkIfValid(SalaryUnitDTO salaryUnitDTO) {
+    private void checkIfValid(SalaryUnitDTO salaryUnitDTO) {
         if (salaryUnitDTO.getSalary() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Salary must be non-negative!");
+            throw new NegativeSalaryException();
         }
+    }
+
+    private void turnSalaryUnit(SalaryUnit base, SalaryUnit template) {
+        base.setSalary(template.getSalary());
+        base.setPeriod(template.getPeriod());
     }
 
     public SalaryUnit createUnit(SalaryUnitDTO dto) {
         checkIfValid(dto);
 
         Optional<User> optUser = authService.getUserByEmail(dto.getEmployee());
-        if(optUser.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email not found");
+        if (optUser.isEmpty()) {
+            throw new EmailNotFoundException();
         }
 
         Date period = DateHandler.toDate(dto.getPeriod());
@@ -48,7 +58,7 @@ public class BusinessService {
         return salaryUnitRepository.findAllByUser_idOrderByPeriodDesc(user.getId());
     }
 
-    public Optional<SalaryUnit> getSalaryUnitsByUserAndPeriod(User user, Date period) {
+    public Optional<SalaryUnit> getSalaryUnitByUserAndPeriod(User user, Date period) {
         return salaryUnitRepository.findFirstByUser_idAndPeriodOrderByPeriodDesc(user.getId(), period);
     }
 
@@ -56,17 +66,12 @@ public class BusinessService {
         try {
             return salaryUnitRepository.save(salaryUnit);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicated salary units!");
+            throw new DuplicatedSalaryUnitsException();
         }
     }
 
     public BusinessCardDTO salaryUnitToBusinessCard(SalaryUnit salaryUnit) {
         return new BusinessCardDTO(salaryUnit, salaryUnit.getUser());
-    }
-
-    public void turnSalaryUnit(SalaryUnit base, SalaryUnit template) {
-        base.setSalary(template.getSalary());
-        base.setPeriod(template.getPeriod());
     }
 
     public List<BusinessCardDTO> unitListToCardList(List<SalaryUnit> unitList) {
@@ -81,9 +86,9 @@ public class BusinessService {
 
     public void updateSalaryUnit(SalaryUnit salaryUnit) {
         try {
-            Optional<SalaryUnit> optBaseUnit = getSalaryUnitsByUserAndPeriod(salaryUnit.getUser(), salaryUnit.getPeriod());
+            Optional<SalaryUnit> optBaseUnit = getSalaryUnitByUserAndPeriod(salaryUnit.getUser(), salaryUnit.getPeriod());
             if (optBaseUnit.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                throw new SalaryUnitNotFoundException();
             }
 
             SalaryUnit baseUnit = optBaseUnit.get();
@@ -91,7 +96,7 @@ public class BusinessService {
             turnSalaryUnit(baseUnit, salaryUnit);
             salaryUnitRepository.save(baseUnit);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error while updating!");
+            throw new UpdatingSalaryUnitException();
         }
     }
 }

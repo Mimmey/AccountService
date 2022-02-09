@@ -1,5 +1,6 @@
 package account.config;
 
+import account.business.entities.businesslogicelements.enums.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -38,9 +39,9 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "api/auth/signup").permitAll()
                 .mvcMatchers(HttpMethod.POST, "api/auth/changepass").authenticated()
-                .mvcMatchers(HttpMethod.GET, "api/empl/payment").hasAnyRole("USER", "ACCOUNTANT")
-                .mvcMatchers("api/acct/payments").hasRole("ACCOUNTANT")
-                .mvcMatchers("api/admin/**").hasRole("ADMINISTRATOR")
+                .mvcMatchers(HttpMethod.GET, "api/empl/payment").hasAnyAuthority(Roles.USER.getName(), Roles.ACCOUNTANT.getName())
+                .mvcMatchers("api/acct/payments").hasAuthority(Roles.ACCOUNTANT.getName())
+                .mvcMatchers("api/admin/**").hasAuthority(Roles.ADMINISTRATOR.getName())
                 .mvcMatchers("/").authenticated()
                 .and()
                 .sessionManagement()

@@ -6,6 +6,7 @@ import account.business.entities.dto.ChangepassDTO;
 import account.business.entities.businesslogicelements.Password;
 import account.business.services.AuthService;
 import account.business.services.PasswordService;
+import account.config.exceptions.badrequestexceptions.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,13 +27,6 @@ public class AuthController {
     @Autowired
     private PasswordService passwordService;
 
-    /*
-    @GetMapping("/getAll")
-    public List<User> getAll() {
-        return authService.getAll();
-    }
-    */
-
     @PostMapping("/signup")
     public User register(@Valid @RequestBody User user) {
         Password password = new Password(user.getPassword());
@@ -40,7 +34,7 @@ public class AuthController {
         authService.encryptAndChangePassword(user, password);
         Optional<User> optUser = authService.register(user);
         if (optUser.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User exist!");
+            throw new UserAlreadyExistException();
         }
 
         return optUser.get();
@@ -52,6 +46,6 @@ public class AuthController {
         passwordService.checkAvailability(password, user, breachedSet);
         authService.encryptAndChangePassword(user, password);
         authService.saveUser(user);
-        return new ChangepassDTO(user.getEmail(), "The password has been updated successfully");
+        ?return new ChangepassDTO(user.getEmail(), "The password has been updated successfully");
     }
 }

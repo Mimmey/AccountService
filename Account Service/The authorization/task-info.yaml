@@ -251,22 +251,6 @@ files:
         Optional<User> findByEmail(String email);
     }
   learner_created: false
-- name: src/account/config/Roles.java
-  visible: true
-  text: |
-    package account.config;
-
-    import lombok.AllArgsConstructor;
-    import lombok.Getter;
-
-    @AllArgsConstructor
-    @Getter
-    public enum Roles {
-        USER("ROLE_USER");
-
-        private String role;
-    }
-  learner_created: false
 - name: src/account/config/WebSecurityConfigurerImpl.java
   visible: true
   text: |
@@ -1703,6 +1687,57 @@ files:
   visible: true
   learner_created: true
 - name: src/account/business/entities/businesslogicelements/enums/RoleOperations.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/BadRequestException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/notfoundexceptions/NotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/notfoundexceptions/UserNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/notfoundexceptions/OperationNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/RemovingOfAdministratorException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/NegativeSalaryException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/notfoundexceptions/EmailNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/DuplicatedSalaryUnitsException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/notfoundexceptions/SalaryUnitNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/internalservererrorexceptions/InternalServerErrorException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/internalservererrorexceptions/UpdatingSalaryUnitException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/PasswordBreachedException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/PasswordTooShortException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/PasswordMatchesPreviousException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/unauthorizedexceptions/UnauthorizedException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/unauthorizedexceptions/CannotFindEmailForAuthorizationException.java
+  visible: true
+  learner_created: true
+- name: src/account/config/exceptions/badrequestexceptions/UserAlreadyExistException.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1090/implement#comment

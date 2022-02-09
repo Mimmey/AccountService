@@ -1,6 +1,7 @@
 package account.presentation;
 
 import account.business.entities.dbentities.User;
+import account.business.entities.dto.RoleOperationDTO;
 import account.business.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ public class ServiceController {
     private AuthService authService;
 
     @PutMapping("/role")
-    public void changeRole() {
-
+    public void changeRole(@RequestBody RoleOperationDTO roleOperation) {
+        authService.changeRoles(roleOperation);
     }
 
     @DeleteMapping("/user/{id}")

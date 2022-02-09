@@ -1,9 +1,15 @@
 package account.business.services;
 
+import account.business.entities.businesslogicelements.enums.RoleOperations;
 import account.business.entities.businesslogicelements.enums.Roles;
 import account.business.entities.dbentities.Group;
 import account.business.entities.dbentities.User;
 import account.business.entities.businesslogicelements.Password;
+import account.business.entities.dto.RoleOperationDTO;
+import account.config.exceptions.badrequestexceptions.RemovingOfAdministratorException;
+import account.config.exceptions.notfoundexceptions.NotFoundException;
+import account.config.exceptions.notfoundexceptions.OperationNotFoundException;
+import account.config.exceptions.notfoundexceptions.UserNotFoundException;
 import account.persistence.GroupRepository;
 import account.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +29,38 @@ public class AuthService {
     private GroupRepository groupRepository;
     @Autowired
     private PasswordService passwordService;
+
+    private void grantRole(User user, String role) {
+
+    }
+
+    private void removeRole(User user, String role) {
+
+    }
+
+    public void changeRoles(RoleOperationDTO roleOperation) {
+        Optional<RoleOperations> optOperation = RoleOperations.findByName(roleOperation.getOperation());
+        Optional<User> optUser = getUserByEmail(roleOperation.getUser());
+
+        if (optUser.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        if (optOperation.isEmpty()) {
+            throw new OperationNotFoundException();
+        }
+
+        switch(optOperation.get()) {
+            case GRANT:
+                grantRole(optUser.get(), roleOperation.getRole());
+                break;
+            case REMOVE:
+                removeRole(optUser.get(), roleOperation.getRole());
+                break;
+            default:
+                throw new OperationNotFoundException();
+        }
+    }
 
     public void encryptAndChangePassword(User user, Password password) {
         passwordService.encryptPassword(password);
@@ -47,7 +85,7 @@ public class AuthService {
         Group adminGroup = groupRepository.findByName(Roles.ADMINISTRATOR.getName()).get();
 
         if (optUser.get().getRoles().contains(adminGroup)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't remove ADMINISTRATOR role!");
+            throw new RemovingOfAdministratorException();
         }
 
         userRepository.deleteById(id);
