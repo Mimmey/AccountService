@@ -1,24 +1,32 @@
 package account.config;
 
-import account.business.entities.User;
+import account.business.entities.dbentities.Group;
+import account.business.entities.dbentities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
-
     private final String username;
     private final String password;
-    private final List<GrantedAuthority> rolesAndAuthorities;
+    private final Set<GrantedAuthority> rolesAndAuthorities;
 
     public UserDetailsImpl(User user) {
-        user.initialize();
-        this.username = user.getEmail();
+        this.username = user.getEmail().toLowerCase(Locale.ROOT);
         this.password = user.getPassword();
-        this.rolesAndAuthorities = List.of(new SimpleGrantedAuthority(Roles.USER.getRole()));
+        this.rolesAndAuthorities = getAuthorities(user);
+    }
+
+    private Set<GrantedAuthority> getAuthorities(User user){
+        Set<Group> userGroups = user.getRoles();
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (Group userGroup : userGroups){
+            authorities.add(new SimpleGrantedAuthority(userGroup.getName().toUpperCase()));
+        }
+
+        return authorities;
     }
 
     @Override

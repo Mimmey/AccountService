@@ -173,55 +173,6 @@ files:
         }
     }
   learner_created: false
-- name: src/account/business/entities/User.java
-  visible: true
-  text: |
-    package account.business.entities;
-
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import lombok.Data;
-
-    import javax.persistence.Entity;
-    import javax.persistence.GeneratedValue;
-    import javax.persistence.GenerationType;
-    import javax.persistence.Id;
-
-    import javax.validation.constraints.Email;
-    import javax.validation.constraints.NotBlank;
-    import javax.validation.constraints.Pattern;
-    import java.util.Locale;
-
-    @Entity
-    @Data
-    public class User {
-
-        public User(String name, String lastname, String email, String password) {
-            this.name = name;
-            this.lastname = lastname;
-            this.email = email.toLowerCase(Locale.ROOT);
-            this.password = password;
-        }
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
-
-        @NotBlank(message = "Name is required")
-        private String name;
-
-        @NotBlank(message = "Lastname is required")
-        private String lastname;
-
-        @Email
-        @NotBlank(message = "Email is required")
-        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
-        private String email;
-
-        @NotBlank
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private String password;
-    }
-  learner_created: false
 - name: src/account/config/UserDetailsImpl.java
   visible: true
   text: |
@@ -1371,6 +1322,389 @@ files:
 
     }
   learner_created: false
+- name: src/account/business/entities/businesslogicelements/Password.java
+  visible: true
+  text: |
+    package account.business.entities.businesslogicelements;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Size;
+
+    @Data
+    @NoArgsConstructor
+    public class Password {
+        @NotBlank
+        @Size
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String new_password;
+
+        public Password(String password) {
+            this.new_password = password;
+        }
+
+    }
+  learner_created: true
+- name: src/account/business/entities/dto/SalaryUnitDTO.java
+  visible: true
+  text: |
+    package account.business.entities.dto;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.NotNull;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class SalaryUnitDTO {
+        @NotBlank
+        private String employee;
+        @NotBlank
+        private String period;
+        @NotNull
+        private long salary;
+    }
+  learner_created: true
+- name: src/account/business/entities/dto/BusinessCardDTO.java
+  visible: true
+  text: |
+    package account.business.entities.dto;
+
+    import account.business.businesslogicunits.DateHandler;
+    import account.business.entities.dbentities.SalaryUnit;
+    import account.business.entities.dbentities.User;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import java.util.Date;
+
+    @Data
+    @NoArgsConstructor
+    public class BusinessCardDTO {
+        private String name;
+        private String lastname;
+        private String period;
+        private String salary;
+
+        public BusinessCardDTO(SalaryUnit salaryUnit, User user) {
+            this.name = user.getName();
+            this.lastname = user.getLastname();
+            setPeriod(salaryUnit.getPeriod());
+            setSalary(salaryUnit.getSalary());
+        }
+
+        private void setSalary(long salary) {
+            long dollars = salary / 100;
+            long cents = salary % 100;
+            this.salary = String.format("%d dollar(s) %d cent(s)", dollars, cents);
+        }
+
+        private void setPeriod(Date period) {
+            this.period = DateHandler.parseString(period);
+        }
+    }
+  learner_created: true
+- name: src/account/business/services/PasswordService.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.dbentities.User;
+    import account.business.entities.businesslogicelements.BreachedSet;
+    import account.business.entities.businesslogicelements.Password;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.stereotype.Service;
+    import org.springframework.web.server.ResponseStatusException;
+
+    @Service
+    public class PasswordService {
+
+        private final static int MIN_SIZE = 12;
+
+        @Autowired
+        private PasswordEncoder encoder;
+
+        public void encryptPassword(Password password) {
+            password.setNew_password(encoder.encode(password.getNew_password()));
+        }
+
+        public void checkAvailability(Password password, User user, BreachedSet breachedSet) {
+            checkIfPreviousIsSame(password, user);
+            checkIfIsInBreachedList(password, breachedSet);
+            checkIfValid(password);
+        }
+
+        public void checkAvailability(Password password, BreachedSet breachedSet) {
+            checkIfIsInBreachedList(password, breachedSet);
+            checkIfValid(password);
+        }
+
+        public void checkIfIsInBreachedList(Password password, BreachedSet breachedSet) {
+            if (breachedSet.contains(password.getNew_password())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is in the hacker's database!");
+            }
+        }
+
+        public void checkIfValid(Password password) {
+            if (password.getNew_password().length() < MIN_SIZE) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be " + MIN_SIZE + " chars minimum!");
+            }
+        }
+
+        public void checkIfPreviousIsSame(Password password, User user) {
+            if (encoder.matches(password.getNew_password(), user.getPassword())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The passwords must be different!");
+            }
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/dbentities/User.java
+  visible: true
+  text: |
+    package account.business.entities.dbentities;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.persistence.*;
+
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Pattern;
+    import java.util.List;
+
+    @Data
+    @Entity
+    @NoArgsConstructor
+    public class User {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        @NotBlank(message = "Name is required")
+        private String name;
+
+        @NotBlank(message = "Lastname is required")
+        private String lastname;
+
+        @Email
+        @NotBlank(message = "Email is required")
+        @Pattern(regexp = "[a-zA-z0-9]+@acme\\.com", message = "Domain should be @acme.com")
+        private String email;
+
+        @NotBlank(message = "Password is required")
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String password;
+
+        @JsonIgnore
+        @OneToMany(mappedBy = "user")
+        private List<SalaryUnit> salaryUnits;
+
+        public User(String name, String lastname, String email, String password) {
+            this.name = name;
+            this.lastname = lastname;
+            this.email = email.toLowerCase();
+            this.password = password;
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/businesslogicelements/BreachedSet.java
+  visible: true
+  text: |
+    package account.business.entities.businesslogicelements;
+
+    import org.springframework.stereotype.Component;
+
+    import java.util.Arrays;
+    import java.util.HashSet;
+    import java.util.Set;
+
+    @Component
+    public class BreachedSet {
+
+        private Set<String> breachedSet = new HashSet<>(Arrays.asList("PasswordForJanuary", "PasswordForFebruary", "PasswordForMarch", "PasswordForApril",
+                "PasswordForMay", "PasswordForJune", "PasswordForJuly", "PasswordForAugust",
+                "PasswordForSeptember", "PasswordForOctober", "PasswordForNovember", "PasswordForDecember"));
+
+        public boolean contains(String s) {
+            for (String unit : breachedSet) {
+                if (unit.equals(s)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/dto/ChangepassDTO.java
+  visible: true
+  text: |
+    package account.business.entities.dto;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @Data
+    @AllArgsConstructor
+    public class ChangepassDTO {
+        private String email;
+        private String status;
+    }
+  learner_created: true
+- name: src/account/persistence/SalaryUnitRepository.java
+  visible: true
+  text: |
+    package account.persistence;
+
+    import account.business.entities.dbentities.SalaryUnit;
+    import org.springframework.data.repository.CrudRepository;
+    import org.springframework.stereotype.Repository;
+
+    import java.util.Date;
+    import java.util.List;
+    import java.util.Optional;
+
+    @Repository
+    public interface SalaryUnitRepository extends CrudRepository<SalaryUnit, Long> {
+        SalaryUnit save(SalaryUnit salaryUnit);
+        List<SalaryUnit> findAllByUser_idOrderByPeriodDesc(long id);
+        Optional<SalaryUnit> findFirstByUser_idAndPeriodOrderByPeriodDesc(long user_id, Date period);
+        void delete(SalaryUnit salaryUnit);
+    }
+  learner_created: true
+- name: src/account/business/businesslogicunits/DateHandler.java
+  visible: true
+  text: |
+    package account.business.businesslogicunits;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.util.Calendar;
+    import java.util.Date;
+    import java.util.Locale;
+
+    public class DateHandler {
+
+        private static final String PATTERN = "mm-YYYY";
+
+        public static Date toDate(String stringDate) {
+            SimpleDateFormat format = new SimpleDateFormat("MM-yyyy");
+            format.setLenient(false);
+            Date javaDate;
+            try {
+                 javaDate = format.parse(stringDate);
+            }
+            catch (ParseException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect date");
+            }
+            return javaDate;
+        }
+
+        public static String parseString(Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
+            int year = cal.get(Calendar.YEAR);
+            return month + "-" + year;
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/dto/StatusResponseDTO.java
+  visible: true
+  text: |
+    package account.business.entities.dto;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class StatusResponseDTO {
+        private String status;
+    }
+  learner_created: true
+- name: src/account/business/entities/dbentities/SalaryUnit.java
+  visible: true
+  text: |
+    package account.business.entities.dbentities;
+
+    import account.business.entities.dto.SalaryUnitDTO;
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.persistence.*;
+    import javax.validation.constraints.NotNull;
+    import java.util.Date;
+
+    @Data
+    @Entity
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"user_id", "period"}) })
+    public class SalaryUnit {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private long id;
+
+        @NotNull
+        @JsonIgnore
+        @Column(columnDefinition = "DATE")
+        private Date period;
+
+        @NotNull
+        private long salary;
+
+        @JsonIgnore
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+
+        public SalaryUnit(long salary, User user, Date period) {
+            this.period = period;
+            this.salary = salary;
+            this.user = user;
+        }
+    }
+  learner_created: true
+- name: src/account/config/DataLoader.java
+  visible: true
+  learner_created: true
+- name: src/account/persistence/GroupRepository.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/dbentities/Group.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/dto/RoleOperationDTO.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/businesslogicelements/enums/Roles.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/businesslogicelements/enums/RoleOperations.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1090/implement#comment
 status: Unchecked
 record: -1

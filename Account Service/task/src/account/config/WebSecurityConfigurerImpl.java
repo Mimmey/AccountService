@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
@@ -35,8 +36,11 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/signup").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/api/empl/payment").authenticated()
+                .antMatchers(HttpMethod.POST, "api/auth/signup").permitAll()
+                .mvcMatchers(HttpMethod.POST, "api/auth/changepass").authenticated()
+                .mvcMatchers(HttpMethod.GET, "api/empl/payment").hasAnyRole("USER", "ACCOUNTANT")
+                .mvcMatchers("api/acct/payments").hasRole("ACCOUNTANT")
+                .mvcMatchers("api/admin/**").hasRole("ADMINISTRATOR")
                 .mvcMatchers("/").authenticated()
                 .and()
                 .sessionManagement()
@@ -45,6 +49,6 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(13);
     }
 }

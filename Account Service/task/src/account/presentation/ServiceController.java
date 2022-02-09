@@ -1,25 +1,31 @@
 package account.presentation;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import account.business.entities.dbentities.User;
+import account.business.services.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequestMapping("api/admin")
 @RestController
 public class ServiceController {
 
-    @PutMapping("api/admin/role")
-    public static void changeRole() {
+    @Autowired
+    private AuthService authService;
+
+    @PutMapping("/role")
+    public void changeRole() {
 
     }
 
-    @DeleteMapping("api/admin/user")
-    public static void deleteUser() {
-
+    @DeleteMapping("/user/{id}")
+    public void deleteUser(@PathVariable long id) {
+        authService.deleteByIdAdminRestricted(id);
     }
 
-    @GetMapping("api/admin/user")
-    public static void getAllUsersInfo() {
-
+    @GetMapping("/user")
+    public List<User> getAllUsersInfo() {
+        return authService.getAll();
     }
 }

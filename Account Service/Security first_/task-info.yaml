@@ -959,6 +959,21 @@ files:
       };
     }
   learner_created: false
+- name: src/account/business/entities/wrappers/Password.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/helpers/BreachedSet.java
+  visible: true
+  learner_created: true
+- name: src/account/business/services/PasswordService.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/wrappers/ChangepassDTO.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1088/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 08 Feb 2022 10:36:31 UTC
 record: 3

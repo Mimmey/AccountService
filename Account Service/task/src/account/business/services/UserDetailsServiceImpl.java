@@ -1,6 +1,6 @@
 package account.business.services;
 
-import account.business.entities.User;
+import account.business.entities.dbentities.User;
 import account.config.UserDetailsImpl;
 import account.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +16,16 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmailIgnoreCase(username);
-
-        if (user.isEmpty()) {
+        Optional<User> optUser = userRepository.findByEmailIgnoreCase(username);
+        if (optUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not found email: " + username);
         }
 
-        return new UserDetailsImpl(user.get());
+        User user = optUser.get();
+        return new UserDetailsImpl(user);
     }
 }

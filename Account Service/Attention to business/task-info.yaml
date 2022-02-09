@@ -173,55 +173,6 @@ files:
         }
     }
   learner_created: false
-- name: src/account/business/entities/User.java
-  visible: true
-  text: |
-    package account.business.entities;
-
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import lombok.Data;
-
-    import javax.persistence.Entity;
-    import javax.persistence.GeneratedValue;
-    import javax.persistence.GenerationType;
-    import javax.persistence.Id;
-
-    import javax.validation.constraints.Email;
-    import javax.validation.constraints.NotBlank;
-    import javax.validation.constraints.Pattern;
-    import java.util.Locale;
-
-    @Entity
-    @Data
-    public class User {
-
-        public User(String name, String lastname, String email, String password) {
-            this.name = name;
-            this.lastname = lastname;
-            this.email = email.toLowerCase(Locale.ROOT);
-            this.password = password;
-        }
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
-
-        @NotBlank(message = "Name is required")
-        private String name;
-
-        @NotBlank(message = "Lastname is required")
-        private String lastname;
-
-        @Email
-        @NotBlank(message = "Email is required")
-        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
-        private String email;
-
-        @NotBlank
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private String password;
-    }
-  learner_created: false
 - name: src/account/config/UserDetailsImpl.java
   visible: true
   text: |
@@ -1150,6 +1101,205 @@ files:
       };
     }
   learner_created: false
+- name: src/account/business/services/PasswordService.java
+  visible: true
+  text: |
+    package account.business.services;
+
+    import account.business.entities.User;
+    import account.business.entities.helpers.BreachedSet;
+    import account.business.entities.wrappers.Password;
+    import account.persistence.UserRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.security.crypto.password.PasswordEncoder;
+    import org.springframework.stereotype.Service;
+    import org.springframework.web.server.ResponseStatusException;
+
+    @Service
+    public class PasswordService {
+
+        private final static int MIN_SIZE = 12;
+
+        @Autowired
+        private UserRepository userRepository;
+        @Autowired
+        private PasswordEncoder encoder;
+
+        public void encryptPassword(Password password) {
+            password.setNew_password(encoder.encode(password.getNew_password()));
+        }
+
+        public void checkAvailability(Password password, User user, BreachedSet breachedSet) {
+            checkIfPreviousIsSame(password, user);
+            checkIfIsInBreachedList(password, breachedSet);
+            checkIfValid(password);
+        }
+
+        public void checkAvailability(Password password, BreachedSet breachedSet) {
+            checkIfIsInBreachedList(password, breachedSet);
+            checkIfValid(password);
+        }
+
+        public void checkIfIsInBreachedList(Password password, BreachedSet breachedSet) {
+            if (breachedSet.contains(password.getNew_password())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is in the hacker's database!");
+            }
+        }
+
+        public void checkIfValid(Password password) {
+            if (password.getNew_password().length() < MIN_SIZE) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password length must be " + MIN_SIZE + " chars minimum!");
+            }
+        }
+
+        public void checkIfPreviousIsSame(Password password, User user) {
+            if (encoder.matches(password.getNew_password(), user.getPassword())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The passwords must be different!");
+            }
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/businesslogicelements/BreachedSet.java
+  visible: true
+  text: |
+    package account.business.entities.helpers;
+
+    import org.springframework.stereotype.Component;
+
+    import java.util.Arrays;
+    import java.util.HashSet;
+    import java.util.Set;
+
+    @Component
+    public class BreachedSet {
+
+        private Set<String> breachedSet = new HashSet<>(Arrays.asList("PasswordForJanuary", "PasswordForFebruary", "PasswordForMarch", "PasswordForApril",
+                "PasswordForMay", "PasswordForJune", "PasswordForJuly", "PasswordForAugust",
+                "PasswordForSeptember", "PasswordForOctober", "PasswordForNovember", "PasswordForDecember"));
+
+        public boolean contains(String s) {
+            for (String unit : breachedSet) {
+                if (unit.equals(s)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+  learner_created: true
+- name: src/account/business/entities/dbentities/User.java
+  visible: true
+  text: |
+    package account.business.entities;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import lombok.Data;
+
+    import javax.persistence.Entity;
+    import javax.persistence.GeneratedValue;
+    import javax.persistence.GenerationType;
+    import javax.persistence.Id;
+
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Pattern;
+    import java.util.Locale;
+
+    @Entity
+    @Data
+    public class User {
+
+        public User(String name, String lastname, String email, String password) {
+            this.name = name;
+            this.lastname = lastname;
+            this.email = email.toLowerCase(Locale.ROOT);
+            this.password = password;
+        }
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        @NotBlank(message = "Name is required")
+        private String name;
+
+        @NotBlank(message = "Lastname is required")
+        private String lastname;
+
+        @Email
+        @NotBlank(message = "Email is required")
+        @Pattern(regexp = ".+@acme.com", message = "Domain should be @acme.com")
+        private String email;
+
+        @NotBlank
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String password;
+    }
+  learner_created: false
+- name: src/account/business/entities/dbentities/SalaryUnit.java
+  visible: true
+  learner_created: true
+- name: src/account/persistence/SalaryUnitRepository.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/businesslogicelements/Password.java
+  visible: true
+  text: |
+    package account.business.entities.wrappers;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.Size;
+
+    @Data
+    @NoArgsConstructor
+    public class Password {
+        @NotBlank
+        @Size
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String new_password;
+
+        public Password(String password) {
+            this.new_password = password;
+        }
+
+    }
+  learner_created: true
+- name: src/account/business/businesslogicunits/DateHandler.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/dto/BusinessCardDTO.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/dto/ChangepassDTO.java
+  visible: true
+  text: |
+    package account.business.entities.wrappers;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @Data
+    @AllArgsConstructor
+    public class ChangepassResponse {
+        private String email;
+        private String status;
+    }
+  learner_created: true
+- name: src/account/business/entities/dto/SalaryUnitDTO.java
+  visible: true
+  learner_created: true
+- name: src/account/business/entities/dto/StatusResponseDTO.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1089/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Wed, 09 Feb 2022 13:47:02 UTC
+record: 4
