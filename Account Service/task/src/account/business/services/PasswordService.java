@@ -3,9 +3,7 @@ package account.business.services;
 import account.business.entities.dbentities.User;
 import account.business.entities.businesslogicelements.BreachedSet;
 import account.business.entities.businesslogicelements.Password;
-import account.config.exceptions.badrequestexceptions.PasswordBreachedException;
-import account.config.exceptions.badrequestexceptions.PasswordMatchesPreviousException;
-import account.config.exceptions.badrequestexceptions.PasswordTooShortException;
+import account.config.exceptions.badrequestexceptions.BadRequestExceptionThrower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,21 +15,22 @@ public class PasswordService {
 
     @Autowired
     private PasswordEncoder encoder;
+
     private void checkIfIsInBreachedList(Password password, BreachedSet breachedSet) {
         if (breachedSet.contains(password.getNew_password())) {
-            throw new PasswordBreachedException();
+            BadRequestExceptionThrower.throwPasswordBreachedException();
         }
     }
 
     private void checkIfValid(Password password) {
         if (password.getNew_password().length() < MIN_SIZE) {
-            throw new PasswordTooShortException(MIN_SIZE);
+            BadRequestExceptionThrower.throwPasswordTooShortException(MIN_SIZE);
         }
     }
 
     private void checkIfPreviousIsSame(Password password, User user) {
         if (encoder.matches(password.getNew_password(), user.getPassword())) {
-            throw new PasswordMatchesPreviousException();
+            BadRequestExceptionThrower.throwPasswordMatchesPreviousException();
         }
     }
 

@@ -10,13 +10,10 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
-@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,15 +40,15 @@ public class User {
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+            CascadeType.MERGE,
+    }, fetch = FetchType.EAGER)
     @JoinTable(name = "user_groups",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"
             ))
-    private Set<Group> roles;
+    private List<Group> roles;
 
-    public User(String name, String lastname, String email, String password, Set<Group> roles) {
+    public User(String name, String lastname, String email, String password, List<Group> roles) {
         this.name = name;
         this.lastname = lastname;
         this.email = email.toLowerCase();
@@ -59,7 +56,15 @@ public class User {
         this.roles = roles;
     }
 
+    public User() {
+        this.roles = new ArrayList<>();
+    }
+
     public void addRole(Group group) {
         roles.add(group);
+    }
+
+    public void removeRole(Group group) {
+        roles.remove(group);
     }
 }

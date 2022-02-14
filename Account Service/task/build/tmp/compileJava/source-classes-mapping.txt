@@ -1,46 +1,69 @@
-account/business/entities/dbentities/User.java
- account.business.entities.dbentities.User
-account/business/entities/businesslogicelements/Password.java
- account.business.entities.businesslogicelements.Password
-account/persistence/UserRepository.java
- account.persistence.UserRepository
-account/presentation/AuthController.java
- account.presentation.AuthController
-account/business/entities/dto/SalaryUnitDTO.java
- account.business.entities.dto.SalaryUnitDTO
+account/config/exceptions/badrequestexceptions/BadRequestExceptionThrower.java
+ account.config.exceptions.badrequestexceptions.BadRequestExceptionThrower
+account/config/exceptions/unauthorizedexceptions/UnauthorizedExceptionThrower.java
+ account.config.exceptions.unauthorizedexceptions.UnauthorizedExceptionThrower
 account/AccountServiceApplication.java
  account.AccountServiceApplication
 account/config/RestAuthenticationEntryPoint.java
  account.config.RestAuthenticationEntryPoint
+account/business/entities/dto/RoleOperationDTO.java
+ account.business.entities.dto.RoleOperationDTO
+account/business/entities/businesslogicelements/enums/Roles.java
+ account.business.entities.businesslogicelements.enums.Roles
+account/config/exceptions/ExceptionThrower.java
+ account.config.exceptions.ExceptionThrower
+account/business/entities/dto/StatusResponseDTO.java
+ account.business.entities.dto.StatusResponseDTO
+account/config/WebSecurityConfigurerImpl.java
+ account.config.WebSecurityConfigurerImpl
+account/business/businesslogicunits/DateHandler.java
+ account.business.businesslogicunits.DateHandler
+account/config/exceptions/internalservererrorexceptions/InternalServerErrorExceptionThrower.java
+ account.config.exceptions.internalservererrorexceptions.InternalServerErrorExceptionThrower
+account/persistence/GroupRepository.java
+ account.persistence.GroupRepository
+account/business/entities/businesslogicelements/BreachedSet.java
+ account.business.entities.businesslogicelements.BreachedSet
+account/config/exceptions/notfoundexceptions/NotFoundExceptionThrower.java
+ account.config.exceptions.notfoundexceptions.NotFoundExceptionThrower
+account/business/entities/businesslogicelements/enums/RoleOperations.java
+ account.business.entities.businesslogicelements.enums.RoleOperations
+account/business/entities/dto/ChangepassDTO.java
+ account.business.entities.dto.ChangepassDTO
+account/business/entities/businesslogicelements/Password.java
+ account.business.entities.businesslogicelements.Password
+account/business/entities/dto/SalaryUnitDTO.java
+ account.business.entities.dto.SalaryUnitDTO
+account/business/entities/dbentities/User.java
+ account.business.entities.dbentities.User
+account/persistence/UserRepository.java
+ account.persistence.UserRepository
+account/presentation/AuthController.java
+ account.presentation.AuthController
+account/business/entities/dto/UserDTO.java
+ account.business.entities.dto.UserDTO
 account/config/UserDetailsImpl.java
  account.config.UserDetailsImpl
-account/business/entities/dbentities/SalaryUnit.java
- account.business.entities.dbentities.SalaryUnit
+account/persistence/SalaryUnitRepository.java
+ account.persistence.SalaryUnitRepository
 account/business/services/PasswordService.java
  account.business.services.PasswordService
 account/business/entities/dto/BusinessCardDTO.java
  account.business.entities.dto.BusinessCardDTO
-account/business/entities/dto/ChangepassDTO.java
- account.business.entities.dto.ChangepassDTO
+account/business/entities/dbentities/Group.java
+ account.business.entities.dbentities.Group
 account/business/services/AuthService.java
  account.business.services.AuthService
-account/config/WebSecurityConfigurerImpl.java
- account.config.WebSecurityConfigurerImpl
-account/config/Roles.java
- account.config.Roles
+ account.business.services.AuthService$1
 account/presentation/ServiceController.java
  account.presentation.ServiceController
-account/business/entities/businesslogicelements/BreachedSet.java
- account.business.entities.businesslogicelements.BreachedSet
-account/business/businesslogicunits/DateHandler.java
- account.business.businesslogicunits.DateHandler
 account/business/services/UserDetailsServiceImpl.java
  account.business.services.UserDetailsServiceImpl
-account/business/entities/dto/StatusResponseDTO.java
- account.business.entities.dto.StatusResponseDTO
-account/persistence/SalaryUnitRepository.java
- account.persistence.SalaryUnitRepository
 account/business/services/BusinessService.java
  account.business.services.BusinessService
+account/business/entities/dbentities/SalaryUnit.java
+ account.business.entities.dbentities.SalaryUnit
 account/presentation/BusinessController.java
  account.presentation.BusinessController
+account/config/DataLoader.java
+ account.config.DataLoader

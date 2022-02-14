@@ -8,7 +8,7 @@ import account.business.entities.dto.SalaryUnitDTO;
 import account.business.entities.dto.StatusResponseDTO;
 import account.business.services.AuthService;
 import account.business.services.BusinessService;
-import account.config.exceptions.notfoundexceptions.SalaryUnitNotFoundException;
+import account.config.exceptions.notfoundexceptions.NotFoundExceptionThrower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +43,7 @@ public class BusinessController {
         } else {
             Optional<SalaryUnit> optUnit = businessService.getSalaryUnitByUserAndPeriod(user, DateHandler.toDate(period));
             if (optUnit.isEmpty()) {
-                throw new SalaryUnitNotFoundException();
+                NotFoundExceptionThrower.throwSalaryUnitNotFoundException();
             }
 
             return new ResponseEntity<>(businessService.salaryUnitToBusinessCard(optUnit.get()), HttpStatus.OK);
@@ -60,13 +60,13 @@ public class BusinessController {
             businessService.saveSalaryUnit(salaryUnit);
         }
 
-        ?return new StatusResponseDTO("Added successfully!");
+        return new StatusResponseDTO("Added successfully!");
     }
 
     @PutMapping("/acct/payments")
     public StatusResponseDTO updatePayment(@RequestBody @Valid SalaryUnitDTO dto) {
         SalaryUnit unit = businessService.createUnit(dto);
         businessService.updateSalaryUnit(unit);
-        ?return new StatusResponseDTO("Updated successfully!");
+        return new StatusResponseDTO("Updated successfully!");
     }
 }

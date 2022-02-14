@@ -1,5 +1,6 @@
 package account.config;
 
+import account.business.entities.businesslogicelements.enums.Roles;
 import account.business.entities.dbentities.Group;
 import account.persistence.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class DataLoader {
 
     private void createRoles() {
         try {
-            groupRepository.save(new Group("ROLE_ADMINISTRATOR"));
-            groupRepository.save(new Group("ROLE_USER"));
-            groupRepository.save(new Group("ROLE_ACCOUNTANT"));
+            groupRepository.save(new Group(Roles.ADMINISTRATOR.getName()));
+            groupRepository.save(new Group(Roles.ACCOUNTANT.getName()));
+            groupRepository.save(new Group(Roles.USER.getName()));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Role creating problem");
         }

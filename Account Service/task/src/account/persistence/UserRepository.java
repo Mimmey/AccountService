@@ -11,8 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     User save(User user);
     Optional<User> findByEmailIgnoreCase(String email);
-    List<User> findAllOrderByIdAsc();
-    boolean existsUser();
+    List<User> findAllByOrderByIdAsc();
     Optional<User> findById(long id);
     void deleteById(long id);
 }

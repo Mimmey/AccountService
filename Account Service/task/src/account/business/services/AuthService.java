@@ -6,10 +6,9 @@ import account.business.entities.dbentities.Group;
 import account.business.entities.dbentities.User;
 import account.business.entities.businesslogicelements.Password;
 import account.business.entities.dto.RoleOperationDTO;
-import account.config.exceptions.badrequestexceptions.RemovingOfAdministratorException;
-import account.config.exceptions.notfoundexceptions.NotFoundException;
-import account.config.exceptions.notfoundexceptions.OperationNotFoundException;
-import account.config.exceptions.notfoundexceptions.UserNotFoundException;
+import account.config.DataLoader;
+import account.config.exceptions.badrequestexceptions.BadRequestExceptionThrower;
+import account.config.exceptions.notfoundexceptions.NotFoundExceptionThrower;
 import account.persistence.GroupRepository;
 import account.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AuthService {
@@ -30,35 +30,64 @@ public class AuthService {
     @Autowired
     private PasswordService passwordService;
 
-    private void grantRole(User user, String role) {
+    private void grantRole(User user, Group role) {
+        List<Group> groupList = user.getRoles();
+        Group accountantRole = groupRepository.findByName(Roles.ACCOUNTANT.getName()).get();
+        Group administratorRole = groupRepository.findByName(Roles.ADMINISTRATOR.getName()).get();
 
+        if (role.getName().equals(Roles.ADMINISTRATOR.getName())
+                && groupList.contains(accountantRole)
+                || role.getName().equals(Roles.ADMINISTRATOR.getName())
+                && groupList.contains(administratorRole)) {
+            BadRequestExceptionThrower.throwAdministratorAccountRolesConflictException();
+        }
+
+        user.addRole(role);
     }
 
-    private void removeRole(User user, String role) {
+    private void removeRole(User user, Group role) {
+        if (role.getName().equals(Roles.ADMINISTRATOR.getName())) {
+            BadRequestExceptionThrower.throwRemovingAdministratorRoleException();
+        }
 
+        List<Group> groupList = user.getRoles();
+        if (!groupList.contains(role)) {
+            BadRequestExceptionThrower.throwUserDoesntHaveRoleException();
+        }
+
+        if (groupList.size() == 1) {
+            BadRequestExceptionThrower.throwRemovingOnlyExistingRoleException();
+        }
+
+        user.removeRole(role);
     }
 
     public void changeRoles(RoleOperationDTO roleOperation) {
         Optional<RoleOperations> optOperation = RoleOperations.findByName(roleOperation.getOperation());
         Optional<User> optUser = getUserByEmail(roleOperation.getUser());
+        Optional<Group> optGroup = groupRepository.findByName(roleOperation.getRole());
 
         if (optUser.isEmpty()) {
-            throw new UserNotFoundException();
+            NotFoundExceptionThrower.throwUserNotFoundException();
         }
 
         if (optOperation.isEmpty()) {
-            throw new OperationNotFoundException();
+            NotFoundExceptionThrower.throwOperationNotFoundException();
+        }
+
+        if (optGroup.isEmpty()) {
+            NotFoundExceptionThrower.throwRoleNotFoundExceptionError();
         }
 
         switch(optOperation.get()) {
             case GRANT:
-                grantRole(optUser.get(), roleOperation.getRole());
+                grantRole(optUser.get(), optGroup.get());
                 break;
             case REMOVE:
-                removeRole(optUser.get(), roleOperation.getRole());
+                removeRole(optUser.get(), optGroup.get());
                 break;
             default:
-                throw new OperationNotFoundException();
+                NotFoundExceptionThrower.throwOperationNotFoundException();
         }
     }
 
@@ -73,7 +102,11 @@ public class AuthService {
     }
 
     public List<User> getAll() {
-        return userRepository.findAllOrderByIdAsc();
+        return userRepository.findAllByOrderByIdAsc();
+    }
+
+    public List<Group> getRoles() {
+        return groupRepository.findAll();
     }
 
     public void deleteByIdAdminRestricted(long id) {
@@ -85,7 +118,7 @@ public class AuthService {
         Group adminGroup = groupRepository.findByName(Roles.ADMINISTRATOR.getName()).get();
 
         if (optUser.get().getRoles().contains(adminGroup)) {
-            throw new RemovingOfAdministratorException();
+            BadRequestExceptionThrower.throwRemovingAdministratorRoleException();
         }
 
         userRepository.deleteById(id);
@@ -103,7 +136,7 @@ public class AuthService {
         }
 
         Group group;
-        if (userRepository.existsUser()) {
+        if (!userRepository.findAllByOrderByIdAsc().isEmpty()) {
             group = groupRepository.findByName(Roles.USER.getName()).get();
         } else {
             group = groupRepository.findByName(Roles.ADMINISTRATOR.getName()).get();

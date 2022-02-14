@@ -20,7 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     private Set<GrantedAuthority> getAuthorities(User user){
-        Set<Group> userGroups = user.getRoles();
+        List<Group> userGroups = user.getRoles();
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (Group userGroup : userGroups){
             authorities.add(new SimpleGrantedAuthority(userGroup.getName().toUpperCase()));

@@ -2,7 +2,7 @@ package account.business.services;
 
 import account.business.entities.dbentities.User;
 import account.config.UserDetailsImpl;
-import account.config.exceptions.unauthorizedexceptions.CannotFindEmailForAuthorizationException;
+import account.config.exceptions.unauthorizedexceptions.UnauthorizedExceptionThrower;
 import account.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optUser = userRepository.findByEmailIgnoreCase(username);
         if (optUser.isEmpty()) {
-            throw new CannotFindEmailForAuthorizationException(username);
+            UnauthorizedExceptionThrower.throwCannotFindEmailForAuthorizationException(username);
         }
 
         User user = optUser.get();

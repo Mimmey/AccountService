@@ -1689,57 +1689,637 @@ files:
 - name: src/account/business/entities/businesslogicelements/enums/RoleOperations.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/BadRequestException.java
+- name: src/account/config/exceptions/badrequestexceptions/BadRequestExceptionThrower.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/notfoundexceptions/NotFoundException.java
+- name: src/account/config/exceptions/internalservererrorexceptions/InternalServerErrorExceptionThrower.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/notfoundexceptions/UserNotFoundException.java
+- name: src/account/config/exceptions/ExceptionThrower.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/notfoundexceptions/OperationNotFoundException.java
+- name: src/account/config/exceptions/notfoundexceptions/NotFoundExceptionThrower.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/RemovingOfAdministratorException.java
+- name: src/account/config/exceptions/unauthorizedexceptions/UnauthorizedExceptionThrower.java
   visible: true
   learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/NegativeSalaryException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/notfoundexceptions/EmailNotFoundException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/DuplicatedSalaryUnitsException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/notfoundexceptions/SalaryUnitNotFoundException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/internalservererrorexceptions/InternalServerErrorException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/internalservererrorexceptions/UpdatingSalaryUnitException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/PasswordBreachedException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/PasswordTooShortException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/PasswordMatchesPreviousException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/unauthorizedexceptions/UnauthorizedException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/unauthorizedexceptions/CannotFindEmailForAuthorizationException.java
-  visible: true
-  learner_created: true
-- name: src/account/config/exceptions/badrequestexceptions/UserAlreadyExistException.java
+- name: src/account/business/entities/dto/UserDTO.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/217/stages/1090/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: "Unexpected error in test #32\n\nWe have recorded this bug and will fix\
+    \ it soon.\n\nSubmitted via IDE\n\nOS Windows 10\nJava 11.0.10\nVendor Oracle\
+    \ Corporation\nTesting library version 8.2\n\norg.hyperskill.hstest.exception.outcomes.UnexpectedError\r\
+    \n\tat org.hyperskill.hstest.stage.SpringTest.reloadSpring(SpringTest.java:175)\r\
+    \n\tat AccountServiceTest.restartApplication(AccountServiceTest.java:330)\r\n\t\
+    at AccountServiceTest.lambda$new$32(AccountServiceTest.java:765)\r\n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting.lambda$null$2(DynamicTesting.java:289)\r\
+    \n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting$1DynamicTestElement.lambda$null$0(DynamicTesting.java:252)\r\
+    \n\tat org.hyperskill.hstest.testing.runner.SpringApplicationRunner.test(SpringApplicationRunner.java:43)\r\
+    \n\tat org.hyperskill.hstest.testing.TestRun.test(TestRun.java:87)\r\n\tat org.hyperskill.hstest.stage.StageTest.start(StageTest.java:116)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\r\
+    \n\tat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\r\
+    \n\tat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\r\
+    \n\tat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\r\
+    \n\tat org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)\r\
+    \n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\r\n\t\
+    at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\r\
+    \n\tat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\r\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\r\
+    \n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\r\
+    \n\tat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\r\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\r\
+    \n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\r\n\t\
+    at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\r\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\r\
+    \n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\r\n\t\
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:413)\r\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\r\
+    \n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\r\
+    \n\tat org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)\r\
+    \n\tat org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)\r\
+    \n\tat com.sun.proxy.$Proxy2.processTestClass(Unknown Source)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:119)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\r\
+    \n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)\r\
+    \n\tat org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)\r\
+    \n\tat org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)\r\
+    \n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\r\
+    \n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\r\
+    \n\tat org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)\r\
+    \n\tat java.base/java.lang.Thread.run(Thread.java:834)\r\nCaused by: java.lang.reflect.InvocationTargetException\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.hyperskill.hstest.stage.SpringTest.startSpring(SpringTest.java:139)\r\
+    \n\tat org.hyperskill.hstest.stage.SpringTest.reloadSpring(SpringTest.java:173)\r\
+    \n\t... 58 more\r\nCaused by: org.springframework.beans.factory.UnsatisfiedDependencyException:\
+    \ Error creating bean with name &#39;accountServiceApplication&#39;: Unsatisfied\
+    \ dependency expressed through field &#39;dataLoader&#39;; nested exception is\
+    \ org.springframework.beans.factory.BeanCreationException: Error creating bean\
+    \ with name &#39;dataLoader&#39; defined in file [C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task\\build\\classes\\java\\main\\account\\\
+    config\\DataLoader.class]: Bean instantiation via constructor failed; nested exception\
+    \ is org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643)\r\
+    \n\tat org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130)\r\
+    \n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:893)\r\
+    \n\tat org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)\r\
+    \n\tat org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)\r\
+    \n\tat org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)\r\
+    \n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)\r\
+    \n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)\r\
+    \n\tat org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:315)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)\r\
+    \n\tat account.AccountServiceApplication.main(AccountServiceApplication.java:14)\r\
+    \n\t... 64 more\r\nCaused by: org.springframework.beans.factory.BeanCreationException:\
+    \ Error creating bean with name &#39;dataLoader&#39; defined in file [C:\\Users\\\
+    1\\IdeaProjects\\Account Service\\Account Service\\task\\build\\classes\\java\\\
+    main\\account\\config\\DataLoader.class]: Bean instantiation via constructor failed;\
+    \ nested exception is org.springframework.beans.BeanInstantiationException: Failed\
+    \ to instantiate [account.config.DataLoader]: Constructor threw exception; nested\
+    \ exception is org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:313)\r\
+    \n\tat org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:294)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\r\
+    \n\tat org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1304)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224)\r\
+    \n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)\r\
+    \n\t... 84 more\r\nCaused by: org.springframework.beans.BeanInstantiationException:\
+    \ Failed to instantiate [account.config.DataLoader]: Constructor threw exception;\
+    \ nested exception is org.springframework.web.server.ResponseStatusException:\
+    \ 500 INTERNAL_SERVER_ERROR &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:217)\r\
+    \n\tat org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117)\r\
+    \n\tat org.springframework.beans.factory.support.ConstructorResolver.lambda$instantiate$0(ConstructorResolver.java:305)\r\
+    \n\tat java.base/java.security.AccessController.doPrivileged(Native Method)\r\n\
+    \tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:304)\r\
+    \n\t... 97 more\r\nCaused by: org.springframework.web.server.ResponseStatusException:\
+    \ 500 INTERNAL_SERVER_ERROR &quot;Role creating problem&quot;\r\n\tat account.config.DataLoader.createRoles(DataLoader.java:28)\r\
+    \n\tat account.config.DataLoader.&lt;init&gt;(DataLoader.java:19)\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\r\
+    \n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)\r\
+    \n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:204)\r\
+    \n\t... 101 more\r\n\njava.lang.reflect.InvocationTargetException\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.hyperskill.hstest.stage.SpringTest.startSpring(SpringTest.java:139)\r\
+    \n\tat org.hyperskill.hstest.stage.SpringTest.reloadSpring(SpringTest.java:173)\r\
+    \n\tat AccountServiceTest.restartApplication(AccountServiceTest.java:330)\r\n\t\
+    at AccountServiceTest.lambda$new$32(AccountServiceTest.java:765)\r\n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting.lambda$null$2(DynamicTesting.java:289)\r\
+    \n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting$1DynamicTestElement.lambda$null$0(DynamicTesting.java:252)\r\
+    \n\tat org.hyperskill.hstest.testing.runner.SpringApplicationRunner.test(SpringApplicationRunner.java:43)\r\
+    \n\tat org.hyperskill.hstest.testing.TestRun.test(TestRun.java:87)\r\n\tat org.hyperskill.hstest.stage.StageTest.start(StageTest.java:116)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\r\
+    \n\tat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\r\
+    \n\tat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\r\
+    \n\tat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\r\
+    \n\tat org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)\r\
+    \n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\r\n\t\
+    at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\r\
+    \n\tat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\r\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\r\
+    \n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\r\
+    \n\tat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\r\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\r\
+    \n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\r\n\t\
+    at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\r\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\r\
+    \n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\r\n\t\
+    at org.junit.runners.ParentRunner.run(ParentRunner.java:413)\r\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)\r\
+    \n\tat org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\r\
+    \n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\r\
+    \n\tat org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)\r\
+    \n\tat org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)\r\
+    \n\tat com.sun.proxy.$Proxy2.processTestClass(Unknown Source)\r\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:119)\r\
+    \n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\
+    \n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\r\
+    \n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)\r\
+    \n\tat org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)\r\
+    \n\tat org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)\r\
+    \n\tat org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)\r\
+    \n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\r\
+    \n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\r\
+    \n\tat org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)\r\
+    \n\tat java.base/java.lang.Thread.run(Thread.java:834)\r\nCaused by: org.springframework.beans.factory.UnsatisfiedDependencyException:\
+    \ Error creating bean with name &#39;accountServiceApplication&#39;: Unsatisfied\
+    \ dependency expressed through field &#39;dataLoader&#39;; nested exception is\
+    \ org.springframework.beans.factory.BeanCreationException: Error creating bean\
+    \ with name &#39;dataLoader&#39; defined in file [C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task\\build\\classes\\java\\main\\account\\\
+    config\\DataLoader.class]: Bean instantiation via constructor failed; nested exception\
+    \ is org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643)\r\
+    \n\tat org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130)\r\
+    \n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:893)\r\
+    \n\tat org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)\r\
+    \n\tat org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)\r\
+    \n\tat org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)\r\
+    \n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)\r\
+    \n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)\r\
+    \n\tat org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:315)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)\r\
+    \n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)\r\
+    \n\tat account.AccountServiceApplication.main(AccountServiceApplication.java:14)\r\
+    \n\t... 64 more\r\nCaused by: org.springframework.beans.factory.BeanCreationException:\
+    \ Error creating bean with name &#39;dataLoader&#39; defined in file [C:\\Users\\\
+    1\\IdeaProjects\\Account Service\\Account Service\\task\\build\\classes\\java\\\
+    main\\account\\config\\DataLoader.class]: Bean instantiation via constructor failed;\
+    \ nested exception is org.springframework.beans.BeanInstantiationException: Failed\
+    \ to instantiate [account.config.DataLoader]: Constructor threw exception; nested\
+    \ exception is org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:313)\r\
+    \n\tat org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:294)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\r\
+    \n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\r\
+    \n\tat org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1304)\r\
+    \n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224)\r\
+    \n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)\r\
+    \n\t... 84 more\r\nCaused by: org.springframework.beans.BeanInstantiationException:\
+    \ Failed to instantiate [account.config.DataLoader]: Constructor threw exception;\
+    \ nested exception is org.springframework.web.server.ResponseStatusException:\
+    \ 500 INTERNAL_SERVER_ERROR &quot;Role creating problem&quot;\r\n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:217)\r\
+    \n\tat org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117)\r\
+    \n\tat org.springframework.beans.factory.support.ConstructorResolver.lambda$instantiate$0(ConstructorResolver.java:305)\r\
+    \n\tat java.base/java.security.AccessController.doPrivileged(Native Method)\r\n\
+    \tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:304)\r\
+    \n\t... 97 more\r\nCaused by: org.springframework.web.server.ResponseStatusException:\
+    \ 500 INTERNAL_SERVER_ERROR &quot;Role creating problem&quot;\r\n\tat account.config.DataLoader.createRoles(DataLoader.java:28)\r\
+    \n\tat account.config.DataLoader.&lt;init&gt;(DataLoader.java:19)\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native\
+    \ Method)\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\r\
+    \n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\r\
+    \n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)\r\
+    \n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:204)\r\
+    \n\t... 101 more\n\nPlease find below the output of your program during this failed\
+    \ test.\n\n---\n\n.   ____          _            __ _ _\n /\\\\ / ___&#39;_ __\
+    \ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | &#39;_ | &#39;_| | &#39;_ \\/ _`\
+    \ | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  &#39;  |____|\
+    \ .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n ::\
+    \ Spring Boot ::        (v2.3.1.RELEASE)\n\n2022-02-13 12:57:34.018  INFO 22712\
+    \ --- [    Test worker] account.AccountServiceApplication        : Starting AccountServiceApplication\
+    \ on LAPTOP-75BR11H8 with PID 22712 (started by 1 in C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task)\n2022-02-13 12:57:34.028  INFO 22712 ---\
+    \ [    Test worker] account.AccountServiceApplication        : No active profile\
+    \ set, falling back to default profiles: default\n2022-02-13 12:57:37.384  INFO\
+    \ 22712 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping\
+    \ Spring Data JPA repositories in DEFERRED mode.\n2022-02-13 12:57:37.643  INFO\
+    \ 22712 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished\
+    \ Spring Data repository scanning in 234ms. Found 3 JPA repository interfaces.\n\
+    2022-02-13 12:57:39.565  INFO 22712 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer\
+    \  : Tomcat initialized with port(s): 28852 (http)\n2022-02-13 12:57:39.598  INFO\
+    \ 22712 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting\
+    \ service [Tomcat]\n2022-02-13 12:57:39.600  INFO 22712 --- [    Test worker]\
+    \ org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache\
+    \ Tomcat/9.0.36]\n2022-02-13 12:57:40.014  INFO 22712 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]\
+    \       : Initializing Spring embedded WebApplicationContext\n2022-02-13 12:57:40.015\
+    \  INFO 22712 --- [    Test worker] w.s.c.ServletWebServerApplicationContext :\
+    \ Root WebApplicationContext: initialization completed in 5806 ms\n2022-02-13\
+    \ 12:57:40.849  INFO 22712 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor\
+    \  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;\n2022-02-13\
+    \ 12:57:41.101  INFO 22712 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper\
+    \  : HHH000204: Processing PersistenceUnitInfo [name: default]\n2022-02-13 12:57:41.419\
+    \  INFO 22712 --- [         task-1] org.hibernate.Version                    :\
+    \ HHH000412: Hibernate ORM core version 5.4.17.Final\n2022-02-13 12:57:42.007\
+    \  INFO 22712 --- [         task-1] o.hibernate.annotations.common.Version   :\
+    \ HCANN000001: Hibernate Commons Annotations {5.1.0.Final}\n2022-02-13 12:57:42.346\
+    \  INFO 22712 --- [         task-1] com.zaxxer.hikari.HikariDataSource       :\
+    \ HikariPool-1 - Starting...\n2022-02-13 12:57:42.918  INFO 22712 --- [      \
+    \   task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.\n\
+    2022-02-13 12:57:43.049  INFO 22712 --- [         task-1] org.hibernate.dialect.Dialect\
+    \            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect\n2022-02-13\
+    \ 12:57:45.710  INFO 22712 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator\
+    \       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]\n\
+    2022-02-13 12:57:45.731  INFO 22712 --- [         task-1] j.LocalContainerEntityManagerFactoryBean\
+    \ : Initialized JPA EntityManagerFactory for persistence unit &#39;default&#39;\n\
+    2022-02-13 12:57:46.943  WARN 22712 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration\
+    \ : spring.jpa.open-in-view is enabled by default. Therefore, database queries\
+    \ may be performed during view rendering. Explicitly configure spring.jpa.open-in-view\
+    \ to disable this warning\n2022-02-13 12:57:48.190  INFO 22712 --- [    Test worker]\
+    \ o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base\
+    \ path &#39;/actuator&#39;\n2022-02-13 12:57:48.353  INFO 22712 --- [    Test\
+    \ worker] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any\
+    \ request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30e5627e,\
+    \ org.springframework.security.web.context.SecurityContextPersistenceFilter@2be807a1,\
+    \ org.springframework.security.web.header.HeaderWriterFilter@1d0484a1, org.springframework.security.web.authentication.logout.LogoutFilter@d062986,\
+    \ org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6a565ca1,\
+    \ org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31fef638,\
+    \ org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c5de8bb,\
+    \ org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7f322cbb,\
+    \ org.springframework.security.web.session.SessionManagementFilter@28543dca, org.springframework.security.web.access.ExceptionTranslationFilter@1d0d19ea,\
+    \ org.springframework.security.web.access.intercept.FilterSecurityInterceptor@18d96a63]\n\
+    2022-02-13 12:57:48.960  INFO 22712 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer\
+    \  : Tomcat started on port(s): 28852 (http) with context path &#39;&#39;\n2022-02-13\
+    \ 12:57:48.962  INFO 22712 --- [    Test worker] DeferredRepositoryInitializationListener\
+    \ : Triggering deferred initialization of Spring Data repositories…\n2022-02-13\
+    \ 12:57:49.079  INFO 22712 --- [    Test worker] DeferredRepositoryInitializationListener\
+    \ : Spring Data repositories initialized!\n2022-02-13 12:57:49.115  INFO 22712\
+    \ --- [    Test worker] account.AccountServiceApplication        : Started AccountServiceApplication\
+    \ in 16.486 seconds (JVM running for 19.634)\n2022-02-13 12:57:50.087  INFO 22712\
+    \ --- [io-28852-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing\
+    \ Spring DispatcherServlet &#39;dispatcherServlet&#39;\n2022-02-13 12:57:50.090\
+    \  INFO 22712 --- [io-28852-exec-2] o.s.web.servlet.DispatcherServlet        :\
+    \ Initializing Servlet &#39;dispatcherServlet&#39;\n2022-02-13 12:57:50.111  INFO\
+    \ 22712 --- [io-28852-exec-2] o.s.web.servlet.DispatcherServlet        : Completed\
+    \ initialization in 19 ms\n2022-02-13 12:57:50.523  WARN 22712 --- [io-28852-exec-2]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;name&#39;: rejected value\
+    \ []; codes [NotBlank.user.name,NotBlank.name,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.name,name]; arguments []; default message [name]]; default message\
+    \ [Name is required]] ]\n2022-02-13 12:57:50.649  WARN 22712 --- [io-28852-exec-1]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;name&#39;: rejected value\
+    \ [null]; codes [NotBlank.user.name,NotBlank.name,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.name,name]; arguments []; default message [name]]; default message\
+    \ [Name is required]] ]\n2022-02-13 12:57:50.687  WARN 22712 --- [io-28852-exec-3]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;lastname&#39;: rejected\
+    \ value []; codes [NotBlank.user.lastname,NotBlank.lastname,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.lastname,lastname]; arguments []; default message [lastname]]; default\
+    \ message [Lastname is required]] ]\n2022-02-13 12:57:50.735  WARN 22712 --- [io-28852-exec-4]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;lastname&#39;: rejected\
+    \ value [null]; codes [NotBlank.user.lastname,NotBlank.lastname,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.lastname,lastname]; arguments []; default message [lastname]]; default\
+    \ message [Lastname is required]] ]\n2022-02-13 12:57:50.771  WARN 22712 --- [io-28852-exec-6]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User)\
+    \ with 2 errors: [Field error in object &#39;user&#39; on field &#39;email&#39;:\
+    \ rejected value []; codes [NotBlank.user.email,NotBlank.email,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email]]; default message\
+    \ [Email is required]] [Field error in object &#39;user&#39; on field &#39;email&#39;:\
+    \ rejected value []; codes [Pattern.user.email,Pattern.email,Pattern.java.lang.String,Pattern];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email],[Ljavax.validation.constraints.Pattern$Flag;@e399454,[a-zA-z0-9]+@acme\\\
+    .com]; default message [Domain should be @acme.com]] ]\n2022-02-13 12:57:50.811\
+    \  WARN 22712 --- [io-28852-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver :\
+    \ Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation\
+    \ failed for argument [0] in public account.business.entities.dto.UserDTO account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;email&#39;: rejected value\
+    \ [null]; codes [NotBlank.user.email,NotBlank.email,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email]]; default message\
+    \ [Email is required]] ]\n2022-02-13 12:57:50.840  WARN 22712 --- [io-28852-exec-5]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;password&#39;: rejected\
+    \ value []; codes [NotBlank.user.password,NotBlank.password,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.password,password]; arguments []; default message [password]]; default\
+    \ message [Password is required]] ]\n2022-02-13 12:57:50.873  WARN 22712 --- [io-28852-exec-9]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;password&#39;: rejected\
+    \ value [null]; codes [NotBlank.user.password,NotBlank.password,NotBlank.java.lang.String,NotBlank];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.password,password]; arguments []; default message [password]]; default\
+    \ message [Password is required]] ]\n2022-02-13 12:57:50.973  WARN 22712 --- [io-28852-exec-8]\
+    \ .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException:\
+    \ Validation failed for argument [0] in public account.business.entities.dto.UserDTO\
+    \ account.presentation.AuthController.register(account.business.entities.dbentities.User)\
+    \ with 2 errors: [Field error in object &#39;user&#39; on field &#39;email&#39;:\
+    \ rejected value [johndoeacme.com]; codes [Pattern.user.email,Pattern.email,Pattern.java.lang.String,Pattern];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email],[Ljavax.validation.constraints.Pattern$Flag;@e399454,[a-zA-z0-9]+@acme\\\
+    .com]; default message [Domain should be @acme.com]] [Field error in object &#39;user&#39;\
+    \ on field &#39;email&#39;: rejected value [johndoeacme.com]; codes [Email.user.email,Email.email,Email.java.lang.String,Email];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email],[Ljavax.validation.constraints.Pattern$Flag;@35684880,.*];\
+    \ default message [must be a well-formed email address]] ]\n2022-02-13 12:57:51.006\
+    \  WARN 22712 --- [o-28852-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver :\
+    \ Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation\
+    \ failed for argument [0] in public account.business.entities.dto.UserDTO account.presentation.AuthController.register(account.business.entities.dbentities.User):\
+    \ [Field error in object &#39;user&#39; on field &#39;email&#39;: rejected value\
+    \ [johndoe@google.com]; codes [Pattern.user.email,Pattern.email,Pattern.java.lang.String,Pattern];\
+    \ arguments [org.springframework.context.support.DefaultMessageSourceResolvable:\
+    \ codes [user.email,email]; arguments []; default message [email],[Ljavax.validation.constraints.Pattern$Flag;@e399454,[a-zA-z0-9]+@acme\\\
+    .com]; default message [Domain should be @acme.com]] ]\n2022-02-13 12:58:43.772\
+    \  INFO 22712 --- [     Thread-335] j.LocalContainerEntityManagerFactoryBean :\
+    \ Closing JPA EntityManagerFactory for persistence unit &#39;default&#39;\n2022-02-13\
+    \ 12:58:43.780  INFO 22712 --- [     Thread-335] o.s.s.concurrent.ThreadPoolTaskExecutor\
+    \  : Shutting down ExecutorService &#39;applicationTaskExecutor&#39;\n2022-02-13\
+    \ 12:58:43.784  INFO 22712 --- [     Thread-335] com.zaxxer.hikari.HikariDataSource\
+    \       : HikariPool-1 - Shutdown initiated...\n2022-02-13 12:58:44.065  INFO\
+    \ 22712 --- [     Thread-335] com.zaxxer.hikari.HikariDataSource       : HikariPool-1\
+    \ - Shutdown completed.\n\n  .   ____          _            __ _ _\n /\\\\ / ___&#39;_\
+    \ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | &#39;_ | &#39;_| | &#39;_ \\/\
+    \ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  &#39;  |____|\
+    \ .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n ::\
+    \ Spring Boot ::        (v2.3.1.RELEASE)\n\n2022-02-13 12:58:44.271  INFO 22712\
+    \ --- [    Test worker] account.AccountServiceApplication        : Starting AccountServiceApplication\
+    \ on LAPTOP-75BR11H8 with PID 22712 (started by 1 in C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task)\n2022-02-13 12:58:44.272  INFO 22712 ---\
+    \ [    Test worker] account.AccountServiceApplication        : No active profile\
+    \ set, falling back to default profiles: default\n2022-02-13 12:58:45.490  INFO\
+    \ 22712 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping\
+    \ Spring Data JPA repositories in DEFERRED mode.\n2022-02-13 12:58:45.566  INFO\
+    \ 22712 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished\
+    \ Spring Data repository scanning in 74ms. Found 3 JPA repository interfaces.\n\
+    2022-02-13 12:58:45.846  INFO 22712 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer\
+    \  : Tomcat initialized with port(s): 28852 (http)\n2022-02-13 12:58:45.848  INFO\
+    \ 22712 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting\
+    \ service [Tomcat]\n2022-02-13 12:58:45.849  INFO 22712 --- [    Test worker]\
+    \ org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache\
+    \ Tomcat/9.0.36]\n2022-02-13 12:58:45.944  INFO 22712 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]\
+    \       : Initializing Spring embedded WebApplicationContext\n2022-02-13 12:58:45.945\
+    \  INFO 22712 --- [    Test worker] w.s.c.ServletWebServerApplicationContext :\
+    \ Root WebApplicationContext: initialization completed in 1635 ms\n2022-02-13\
+    \ 12:58:46.186  INFO 22712 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor\
+    \  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;\n2022-02-13\
+    \ 12:58:46.218  INFO 22712 --- [         task-1] o.hibernate.jpa.internal.util.LogHelper\
+    \  : HHH000204: Processing PersistenceUnitInfo [name: default]\n2022-02-13 12:58:46.246\
+    \  INFO 22712 --- [         task-1] com.zaxxer.hikari.HikariDataSource       :\
+    \ HikariPool-2 - Starting...\n2022-02-13 12:58:46.308  INFO 22712 --- [      \
+    \   task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.\n\
+    2022-02-13 12:58:46.312  INFO 22712 --- [         task-1] org.hibernate.dialect.Dialect\
+    \            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect\n2022-02-13\
+    \ 12:58:46.714  INFO 22712 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator\
+    \       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]\n\
+    2022-02-13 12:58:46.716  INFO 22712 --- [         task-1] j.LocalContainerEntityManagerFactoryBean\
+    \ : Initialized JPA EntityManagerFactory for persistence unit &#39;default&#39;\n\
+    2022-02-13 12:58:46.777  WARN 22712 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper\
+    \   : SQL Error: 23505, SQLState: 23505\n2022-02-13 12:58:46.778 ERROR 22712 ---\
+    \ [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unique index or\
+    \ primary key violation: &quot;PUBLIC.UK_5978CXF729TP2L1WEDSNJY7CC_INDEX_4 ON\
+    \ PUBLIC.PRINCIPLE_GROUPS(NAME) VALUES 1&quot;; SQL statement:\ninsert into principle_groups\
+    \ (name, id) values (?, ?) [23505-200]\n2022-02-13 12:58:46.793  WARN 22712 ---\
+    \ [    Test worker] ConfigServletWebServerApplicationContext : Exception encountered\
+    \ during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException:\
+    \ Error creating bean with name &#39;accountServiceApplication&#39;: Unsatisfied\
+    \ dependency expressed through field &#39;dataLoader&#39;; nested exception is\
+    \ org.springframework.beans.factory.BeanCreationException: Error creating bean\
+    \ with name &#39;dataLoader&#39; defined in file [C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task\\build\\classes\\java\\main\\account\\\
+    config\\DataLoader.class]: Bean instantiation via constructor failed; nested exception\
+    \ is org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\n2022-02-13 12:58:46.798  INFO 22712 --- [\
+    \    Test worker] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory\
+    \ for persistence unit &#39;default&#39;\n2022-02-13 12:58:46.799  INFO 22712\
+    \ --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down\
+    \ ExecutorService &#39;applicationTaskExecutor&#39;\n2022-02-13 12:58:46.800 \
+    \ INFO 22712 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       :\
+    \ HikariPool-2 - Shutdown initiated...\n2022-02-13 12:58:47.117  INFO 22712 ---\
+    \ [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 -\
+    \ Shutdown completed.\n2022-02-13 12:58:47.118  INFO 22712 --- [    Test worker]\
+    \ o.apache.catalina.core.StandardService   : Stopping service [Tomcat]\n2022-02-13\
+    \ 12:58:47.135  INFO 22712 --- [    Test worker] ConditionEvaluationReportLoggingListener\
+    \ : \n\nError starting ApplicationContext. To display the conditions report re-run\
+    \ your application with &#39;debug&#39; enabled.\n2022-02-13 12:58:47.168 ERROR\
+    \ 22712 --- [    Test worker] o.s.boot.SpringApplication               : Application\
+    \ run failed\n\norg.springframework.beans.factory.UnsatisfiedDependencyException:\
+    \ Error creating bean with name &#39;accountServiceApplication&#39;: Unsatisfied\
+    \ dependency expressed through field &#39;dataLoader&#39;; nested exception is\
+    \ org.springframework.beans.factory.BeanCreationException: Error creating bean\
+    \ with name &#39;dataLoader&#39; defined in file [C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task\\build\\classes\\java\\main\\account\\\
+    config\\DataLoader.class]: Bean instantiation via constructor failed; nested exception\
+    \ is org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:893)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)\
+    \ ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)\
+    \ ~[spring-context-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:315)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)\
+    \ ~[spring-boot-2.3.1.RELEASE.jar:2.3.1.RELEASE]\n\tat account.AccountServiceApplication.main(AccountServiceApplication.java:14)\
+    \ ~[main/:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method) ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\
+    \ ~[na:na]\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]\n\
+    \tat org.hyperskill.hstest.stage.SpringTest.startSpring(SpringTest.java:139) ~[hs-test-release-SNAPSHOT.jar:na]\n\
+    \tat org.hyperskill.hstest.stage.SpringTest.reloadSpring(SpringTest.java:173)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat AccountServiceTest.restartApplication(AccountServiceTest.java:330)\
+    \ ~[test/:na]\n\tat AccountServiceTest.lambda$new$32(AccountServiceTest.java:765)\
+    \ ~[test/:na]\n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting.lambda$null$2(DynamicTesting.java:289)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat org.hyperskill.hstest.dynamic.input.DynamicTesting$1DynamicTestElement.lambda$null$0(DynamicTesting.java:252)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat org.hyperskill.hstest.testing.runner.SpringApplicationRunner.test(SpringApplicationRunner.java:43)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat org.hyperskill.hstest.testing.TestRun.test(TestRun.java:87)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat org.hyperskill.hstest.stage.StageTest.start(StageTest.java:116)\
+    \ ~[hs-test-release-SNAPSHOT.jar:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method) ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\
+    \ ~[na:na]\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]\n\
+    \tat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\
+    \ ~[junit-4.13.jar:4.13]\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)\
+    \ ~[na:na]\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)\
+    \ ~[na:na]\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)\
+    \ ~[na:na]\n\tat org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)\
+    \ ~[na:na]\n\tat org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method) ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\
+    \ ~[na:na]\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]\n\
+    \tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\
+    \ ~[na:na]\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\
+    \ ~[na:na]\n\tat org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)\
+    \ ~[na:na]\n\tat org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)\
+    \ ~[na:na]\n\tat com.sun.proxy.$Proxy2.processTestClass(Unknown Source) ~[na:na]\n\
+    \tat org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:119)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native\
+    \ Method) ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\
+    \ ~[na:na]\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]\n\
+    \tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)\
+    \ ~[na:na]\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)\
+    \ ~[na:na]\n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)\
+    \ ~[na:na]\n\tat org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)\
+    \ ~[na:na]\n\tat org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)\
+    \ ~[na:na]\n\tat org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)\
+    \ ~[na:na]\n\tat org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)\
+    \ ~[na:na]\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\
+    \ ~[na:na]\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\
+    \ ~[na:na]\n\tat org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)\
+    \ ~[na:na]\n\tat java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]\nCaused\
+    \ by: org.springframework.beans.factory.BeanCreationException: Error creating\
+    \ bean with name &#39;dataLoader&#39; defined in file [C:\\Users\\1\\IdeaProjects\\\
+    Account Service\\Account Service\\task\\build\\classes\\java\\main\\account\\\
+    config\\DataLoader.class]: Bean instantiation via constructor failed; nested exception\
+    \ is org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\n\tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:313)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:294)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1304)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1224)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\t... 84 common frames omitted\n\
+    Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate\
+    \ [account.config.DataLoader]: Constructor threw exception; nested exception is\
+    \ org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:217)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat org.springframework.beans.factory.support.ConstructorResolver.lambda$instantiate$0(ConstructorResolver.java:305)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\tat java.base/java.security.AccessController.doPrivileged(Native\
+    \ Method) ~[na:na]\n\tat org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:304)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\t... 97 common frames omitted\n\
+    Caused by: org.springframework.web.server.ResponseStatusException: 500 INTERNAL_SERVER_ERROR\
+    \ &quot;Role creating problem&quot;\n\tat account.config.DataLoader.createRoles(DataLoader.java:28)\
+    \ ~[main/:na]\n\tat account.config.DataLoader.&lt;init&gt;(DataLoader.java:19)\
+    \ ~[main/:na]\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native\
+    \ Method) ~[na:na]\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\
+    \ ~[na:na]\n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\
+    \ ~[na:na]\n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)\
+    \ ~[na:na]\n\tat org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:204)\
+    \ ~[spring-beans-5.2.7.RELEASE.jar:5.2.7.RELEASE]\n\t... 101 common frames omitted"
+  time: Sun, 13 Feb 2022 09:58:47 UTC
 record: -1

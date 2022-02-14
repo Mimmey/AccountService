@@ -3,6 +3,7 @@ package account.config;
 import account.business.entities.businesslogicelements.enums.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,18 +15,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
     @Autowired
     RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     @Autowired
-    UserDetailsService userDetailService;
+    UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailService)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(getEncoder());
     }
 
@@ -42,7 +44,7 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET, "api/empl/payment").hasAnyAuthority(Roles.USER.getName(), Roles.ACCOUNTANT.getName())
                 .mvcMatchers("api/acct/payments").hasAuthority(Roles.ACCOUNTANT.getName())
                 .mvcMatchers("api/admin/**").hasAuthority(Roles.ADMINISTRATOR.getName())
-                .mvcMatchers("/").authenticated()
+                .mvcMatchers("/").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
