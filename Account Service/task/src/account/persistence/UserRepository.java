@@ -12,6 +12,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User save(User user);
     Optional<User> findByEmailIgnoreCase(String email);
     List<User> findAllByOrderByIdAsc();
-    Optional<User> findById(long id);
-    void deleteById(long id);
+    Optional<User> findByEmail(String email);
+    User deleteByEmail(String email);
 }

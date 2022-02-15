@@ -109,8 +109,8 @@ public class AuthService {
         return groupRepository.findAll();
     }
 
-    public void deleteByIdAdminRestricted(long id) {
-        Optional<User> optUser = userRepository.findById(id);
+    public User deleteByEmailAdminRestricted(String email) {
+        Optional<User> optUser = userRepository.findByEmail(email);
         if (optUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -121,7 +121,7 @@ public class AuthService {
             BadRequestExceptionThrower.throwRemovingAdministratorRoleException();
         }
 
-        userRepository.deleteById(id);
+        return userRepository.deleteByEmail(email);
     }
 
     public Optional<User> getUserByEmail(String email) {

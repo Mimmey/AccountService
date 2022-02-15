@@ -25,7 +25,7 @@ public class DataLoader {
             groupRepository.save(new Group(Roles.ACCOUNTANT.getName()));
             groupRepository.save(new Group(Roles.USER.getName()));
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Role creating problem");
+
         }
     }
 }

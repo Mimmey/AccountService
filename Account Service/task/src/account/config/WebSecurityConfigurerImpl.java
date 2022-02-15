@@ -45,6 +45,7 @@ public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("api/acct/payments").hasAuthority(Roles.ACCOUNTANT.getName())
                 .mvcMatchers("api/admin/**").hasAuthority(Roles.ADMINISTRATOR.getName())
                 .mvcMatchers("/").permitAll()
+                .and().exceptionHandling().accessDeniedPage("/access-denied")
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

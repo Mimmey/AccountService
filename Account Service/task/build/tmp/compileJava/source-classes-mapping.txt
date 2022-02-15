@@ -2,8 +2,8 @@ account/config/exceptions/badrequestexceptions/BadRequestExceptionThrower.java
  account.config.exceptions.badrequestexceptions.BadRequestExceptionThrower
 account/config/exceptions/unauthorizedexceptions/UnauthorizedExceptionThrower.java
  account.config.exceptions.unauthorizedexceptions.UnauthorizedExceptionThrower
-account/AccountServiceApplication.java
- account.AccountServiceApplication
+account/business/entities/dbentities/SalaryUnit.java
+ account.business.entities.dbentities.SalaryUnit
 account/config/RestAuthenticationEntryPoint.java
  account.config.RestAuthenticationEntryPoint
 account/business/entities/dto/RoleOperationDTO.java
@@ -36,10 +36,10 @@ account/business/entities/dto/SalaryUnitDTO.java
  account.business.entities.dto.SalaryUnitDTO
 account/business/entities/dbentities/User.java
  account.business.entities.dbentities.User
-account/persistence/UserRepository.java
- account.persistence.UserRepository
-account/presentation/AuthController.java
- account.presentation.AuthController
+account/config/DataLoader.java
+ account.config.DataLoader
+account/AccountServiceApplication.java
+ account.AccountServiceApplication
 account/business/entities/dto/UserDTO.java
  account.business.entities.dto.UserDTO
 account/config/UserDetailsImpl.java
@@ -52,18 +52,20 @@ account/business/entities/dto/BusinessCardDTO.java
  account.business.entities.dto.BusinessCardDTO
 account/business/entities/dbentities/Group.java
  account.business.entities.dbentities.Group
+account/persistence/UserRepository.java
+ account.persistence.UserRepository
+account/business/services/UserDetailsServiceImpl.java
+ account.business.services.UserDetailsServiceImpl
+account/business/entities/dto/DeleteUserDTO.java
+ account.business.entities.dto.DeleteUserDTO
+account/presentation/AuthController.java
+ account.presentation.AuthController
 account/business/services/AuthService.java
  account.business.services.AuthService
  account.business.services.AuthService$1
 account/presentation/ServiceController.java
  account.presentation.ServiceController
-account/business/services/UserDetailsServiceImpl.java
- account.business.services.UserDetailsServiceImpl
 account/business/services/BusinessService.java
  account.business.services.BusinessService
-account/business/entities/dbentities/SalaryUnit.java
- account.business.entities.dbentities.SalaryUnit
 account/presentation/BusinessController.java
  account.presentation.BusinessController
-account/config/DataLoader.java
- account.config.DataLoader
